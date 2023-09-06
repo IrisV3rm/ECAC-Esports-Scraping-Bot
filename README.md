@@ -1,7 +1,5 @@
 # ECAC Scraper & Discord Bot
-
 ![ECAC Logo](https://irisapp.ca/api/Dev/ecac-scraping/ECACScraper.png)
-
 ## Introduction
 
 Welcome to the ECAC Scraper & Discord Bot repository! This project offers a powerful toolset for individuals and organizations participating in the Esports Collegiate Athletic Conference (ECAC). Whether you're a player, coach, or enthusiast, our automated scraper and Discord bot will help you stay up-to-date with your next opponent and streamline your ECAC experience.
