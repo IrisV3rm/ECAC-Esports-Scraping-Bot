@@ -1,0 +1,13 @@
+/bin
+/obj
+/bin/Debug
+/obj/Debug
+/bin/Release
+/obj/Release
+/.vs/*
+/FileContentIndex
+.vs/*
+
+*.nupkg
+*.nuspec
+.vs/ECAC eSports Scraper/v17/.suo
