@@ -1,30 +1,17 @@
 ﻿namespace Bot.DataTypes.GameAPIHandles.Valorant
 {
-    public class ValorantTrackerStats
+    public record ValorantTrackerStats(ValorantAgent TopAgent, ValorantAgent.ValorantRole Role, TrackerScore TrackerScore, string WinPercentage, string HeadshotPercentage, string KdRatio, string AverageDamagePerRound, ValorantRank PeakRank, ValorantRank CurrentRank)
     {
-        public ValorantAgent TopAgent { get; set; }
-        public ValorantAgent.ValorantRole Role { get; set; }
-        public TrackerScore TrackerScore { get; set; }
-        public ValorantRank PeakRank { get; set; }
-        public ValorantRank CurrentRank { get; set; }
+        public ValorantAgent TopAgent { get; set; } = TopAgent;
+        public ValorantAgent.ValorantRole Role { get; set; } = Role;
+        public TrackerScore TrackerScore { get; set; } = TrackerScore;
+        public ValorantRank PeakRank { get; set; } = PeakRank;
+        public ValorantRank CurrentRank { get; set; } = CurrentRank;
 
-        public string WinPercentage { get; set; }
-        public string HeadshotPercentage { get; set; }
-        public string KdRatio { get; set; }
-        public string AverageDamagePerRound { get; set; }
-
-        public ValorantTrackerStats(ValorantAgent topAgent, ValorantAgent.ValorantRole role, TrackerScore trackerScore, string winPercentage, string headshotPercentage, string kDRatio, string averageDamagePerRound, ValorantRank peakRank, ValorantRank currentRank)
-        {
-            TopAgent = topAgent;
-            Role = role;
-            TrackerScore = trackerScore;
-            WinPercentage = winPercentage;
-            HeadshotPercentage = headshotPercentage;
-            KdRatio = kDRatio;
-            AverageDamagePerRound = averageDamagePerRound;
-            PeakRank = peakRank;
-            CurrentRank = currentRank;
-        }
+        public string WinPercentage { get; set; } = WinPercentage;
+        public string HeadshotPercentage { get; set; } = HeadshotPercentage;
+        public string KdRatio { get; set; } = KdRatio;
+        public string AverageDamagePerRound { get; set; } = AverageDamagePerRound;
 
         public static ValorantTrackerStats DefaultStats()
         {

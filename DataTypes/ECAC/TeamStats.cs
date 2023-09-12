@@ -1,16 +1,9 @@
 ﻿namespace ECAC_eSports_Scraper.DataTypes.ECAC
 {
-    public class TeamStats
+    public record TeamStats(double WinCount, double LossCount, double WinPercentage)
     {
-        public double WinCount { get; set; }
-        public double LossCount { get; set; }
-        public double WinPercentage { get; set; }
-
-        public TeamStats(double winCount, double lossCount, double winPercentage)
-        {
-            WinCount = winCount;
-            LossCount = lossCount;
-            WinPercentage = winPercentage;
-        }
+        public double WinCount { get; set; } = WinCount;
+        public double LossCount { get; set; } = LossCount;
+        public double WinPercentage { get; set; } = WinPercentage;
     }
 }

@@ -3,25 +3,15 @@ using ECAC_eSports_Scraper.DataTypes.GameTypes;
 
 namespace ECAC_eSports_Scraper.DataTypes.ECAC
 {
-    public class Team
+    public record Team(string Id, string LogoUrl, string Name, List<User> Members, string SchoolName, GlobalGameData.Games Game)
     {
-        public string Id { get; set; }
-        public string LogoUrl { get; set; }
-        public string Name { get; set; }
-        public string SchoolName { get; set; }
-        public List<User> Members { get; set; }
-        
-        public GlobalGameData.Games Game { get; set; }
+        public string Id { get; set; } = Id;
+        public string LogoUrl { get; set; } = LogoUrl;
+        public string Name { get; set; } = Name;
+        public string SchoolName { get; set; } = SchoolName;
+        public List<User> Members { get; set; } = Members;
 
-        public Team(string id, string logoUrl, string name, List<User> members, string schoolName, GlobalGameData.Games teamGame)
-        {
-            Id = id;
-            LogoUrl = logoUrl;
-            Name = name;
-            Members = members;
-            SchoolName = schoolName;
-            Game = teamGame;
-        }
+        public GlobalGameData.Games Game { get; set; } = Game;
     }
 }
 

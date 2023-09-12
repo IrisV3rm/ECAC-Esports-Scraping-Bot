@@ -2,7 +2,7 @@
 
 namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant
 {
-    public class ValorantRank
+    public record ValorantRank(string Rank, dynamic RankIcon)
     {
         public static Dictionary<string, string> AbbreviatedRanks = new ()
         {
@@ -35,15 +35,8 @@ namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant
         };
         
 
-        public string Rank { get; set; }
-        public dynamic RankIcon { get; set; }
-        public string SmallerRank { get; set; }
-
-        public ValorantRank(string rank, dynamic rankIcon)
-        {
-            Rank = rank;
-            RankIcon = rankIcon;
-            SmallerRank = AbbreviatedRanks[rank];
-        }
+        public string Rank { get; set; } = Rank;
+        public dynamic RankIcon { get; set; } = RankIcon;
+        public string SmallerRank { get; set; } = AbbreviatedRanks[Rank];
     }
 }

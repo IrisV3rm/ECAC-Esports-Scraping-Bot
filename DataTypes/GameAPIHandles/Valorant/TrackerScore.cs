@@ -6,21 +6,12 @@ using System.Threading.Tasks;
 
 namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant
 {
-    public class TrackerScore
+    public record TrackerScore(int Score, double WinPercentage, double Kast, double AverageCombatScore, double DdPerRound)
     {
-        public int Score { get; set; }
-        public double WinPercentage { get; set; }
-        public double Kast { get; set; }
-        public double AverageCombatScore { get; set; }
-        public double DdPerRound { get; set; }
-
-        public TrackerScore(int score, double winPercentage, double kAst, double averageCombatScore, double dDPerRound)
-        {
-            Score = score;
-            WinPercentage = winPercentage;
-            Kast = kAst;
-            AverageCombatScore = averageCombatScore;
-            DdPerRound = dDPerRound;
-        }
+        public int Score { get; set; } = Score;
+        public double WinPercentage { get; set; } = WinPercentage;
+        public double Kast { get; set; } = Kast;
+        public double AverageCombatScore { get; set; } = AverageCombatScore;
+        public double DdPerRound { get; set; } = DdPerRound;
     }
 }

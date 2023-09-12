@@ -4,12 +4,12 @@ using DSharpPlus.Entities;
 
 namespace Bot.DataTypes.ECAC
 {
-    public class User
+    public record User(string EcacName, string RoleId, string UserId, string DiscordHandle)
     {
-        public string EcacName { get; set; }
-        public string RoleId { get; set; }
-        public string UserId { get; set; }
-        public string DiscordHandle { get; set; }
+        public string EcacName { get; set; } = EcacName;
+        public string RoleId { get; set; } = RoleId;
+        public string UserId { get; set; } = UserId;
+        public string DiscordHandle { get; set; } = DiscordHandle;
         public string RiotId { get; set; }
 
         public ValorantRank ValorantCurrentRank { get; set; }
@@ -17,14 +17,6 @@ namespace Bot.DataTypes.ECAC
         public ValorantTrackerStats TrackerStats { get; set; }
 
         public IEnumerable<DiscordEmbed> DiscordEmbeds { get; set; }
-
-        public User(string name, string roleId, string userId, string discordHandle)
-        {
-            EcacName = name;
-            RoleId = roleId;
-            UserId = userId;
-            DiscordHandle = discordHandle;
-        }
 
         public void SetRiotId(string riotId)
         {

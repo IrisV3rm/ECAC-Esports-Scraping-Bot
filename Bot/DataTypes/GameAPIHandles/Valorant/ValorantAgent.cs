@@ -1,6 +1,6 @@
 ﻿namespace Bot.DataTypes.GameAPIHandles.Valorant
 {
-    public class ValorantAgent
+    public record ValorantAgent(string Name, ValorantAgent.ValorantRole Role, dynamic Avatar, double HoursPlayed, double WinPercentage, double KdRatio)
     {
         public enum ValorantRole
         {
@@ -10,21 +10,11 @@
             Initiator,
         }
 
-        public string Name { get; set; }
-        public ValorantRole Role { get; set; }
-        public dynamic Avatar { get; set; }
-        public double HoursPlayed { get; set; }
-        public double WinPercentage { get; set; }
-        public double KdRatio { get; set; }
-
-        public ValorantAgent(string name, ValorantRole role, dynamic avatar, double hoursPlayed, double winPercentage, double kdRatio)
-        {
-            Name = name;
-            Role = role;
-            Avatar = avatar;
-            HoursPlayed = hoursPlayed;
-            WinPercentage = winPercentage;
-            KdRatio = kdRatio;
-        }
+        public string Name { get; set; } = Name;
+        public ValorantRole Role { get; set; } = Role;
+        public dynamic Avatar { get; set; } = Avatar;
+        public double HoursPlayed { get; set; } = HoursPlayed;
+        public double WinPercentage { get; set; } = WinPercentage;
+        public double KdRatio { get; set; } = KdRatio;
     }
 }
