@@ -9,7 +9,6 @@ using System.Windows.Media.Imaging;
 using ECAC_eSports_Scraper.Classes.ECACMethods;
 using ECAC_eSports_Scraper.Classes.GameAPIMethods;
 using ECAC_eSports_Scraper.DataTypes.ECAC;
-using ECAC_eSports_Scraper.DataTypes.GameAPIHandles;
 using ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant;
 using ECAC_eSports_Scraper.DataTypes.GameTypes;
 using Wpf.Ui.Common;
@@ -67,8 +66,8 @@ namespace ECAC_eSports_Scraper.Methods
             {
                 Console.WriteLine(@"Starting Enemy: " + user.EcacName);
                 string linkedHandle = await EcacMethods.GetLinkedHandleByType(user.UserId, EcacMethods.HandleTypes.Valorant);
-                ValorantRank currentRank = await TrackerGg.GetCurrentRank(linkedHandle);
-                ValorantRank peakRank = await TrackerGg.GetPeakRank(linkedHandle);
+                ValorantRank currentRank = user.ValorantCurrentRank;
+                ValorantRank peakRank = user.ValorantPeakRank;
 
                 user.SetRiotId(linkedHandle);
                 user.SetValorantCurrentRank(currentRank);
@@ -91,8 +90,8 @@ namespace ECAC_eSports_Scraper.Methods
                 ecacNameRun!.Text = user.EcacName;
                 riotTagRun!.Text = user.RiotId;
 
-                kdaRun!.Text = await TrackerGg.GetKdRatio(linkedHandle);
-                hsRun!.Text = await TrackerGg.GetHeadshotPercentage(linkedHandle);
+                kdaRun!.Text = user.TrackerStats.KdRatio;
+                hsRun!.Text = user.TrackerStats.HeadshotPercentage;
 
                 firstImage.Source = user.ValorantCurrentRank.RankIcon is Bitmap ? GlobalMethods.ImageSourceFromBitmap(user.ValorantCurrentRank.RankIcon) : new BitmapImage(new Uri(user.ValorantCurrentRank.RankIcon.ToString()));
                 secondImage.Source = firstImage.Source;

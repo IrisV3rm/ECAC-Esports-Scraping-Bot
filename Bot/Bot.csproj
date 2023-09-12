@@ -154,6 +154,7 @@
     <Compile Include="DataTypes\GameTypes\GlobalGameData.cs" />
     <Compile Include="DataTypes\TeamViewerHandler.cs" />
     <Compile Include="EmbedCreator.cs" />
+    <Compile Include="EmojiHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -161,5 +162,6 @@
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

@@ -67,6 +67,9 @@ namespace Bot
                 await ctx.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
                 await Program.EnemyTeamViewer.DoCommand(Program.EnemyChannelId);
             }
+
+            [SlashCommand("uploademojis", "Will upload all the bot's required emojis (WARNING YOU NEED 50 SLOTS)")]
+            public async Task UploadEmojis(InteractionContext ctx) => await EmojiHandler.UploadEmojiHandler(ctx);
         }
     }
 }

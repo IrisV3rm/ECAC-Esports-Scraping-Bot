@@ -115,18 +115,11 @@ namespace ECAC_eSports_Scraper.Classes.ECACMethods
 
         public static List<User> GetTeamMembers(JToken members)
         {
-            List<User> membersList = new();
-            foreach (JToken member in members)
-            {
-                membersList.Add(new User(
-                    member.Value<string>("gamerHandle"),
-                    member.Value<string>("roleId"),
-                    member.Value<string>("userId"),
-                    member.Value<string>("discordHandle")
-                ));
-            }
-
-            return membersList;
+            return members.Select(member => new User(
+                member.Value<string>("gamerHandle"),
+                member.Value<string>("roleId"),
+                member.Value<string>("userId"),
+                member.Value<string>("discordHandle"))).ToList();
         }
 
         public static async Task<TeamStats> GetTeamStats(string teamId, bool currentSeasonOnly = true)

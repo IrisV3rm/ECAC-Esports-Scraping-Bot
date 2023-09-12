@@ -47,3 +47,11 @@ G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.cspr
 G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.csproj.CopyComplete
 G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.exe
 G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.pdb
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Debug\Bot.exe.config
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Debug\Bot.exe
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Debug\Bot.pdb
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\Bot.csproj.AssemblyReference.cache
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\Bot.csproj.CoreCompileInputs.cache
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\Bot.csproj.CopyComplete
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\Bot.exe
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\Bot.pdb

@@ -279,7 +279,7 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
             );
         }
 
-        private static async Task<string> FetchAndCacheData(string url)
+        public static async Task<string> FetchAndCacheData(string url)
         {
             Debug.WriteLine($"Fetching: {url}");
             

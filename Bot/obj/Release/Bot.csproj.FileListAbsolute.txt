@@ -1,0 +1,8 @@
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Release\bin\Bot.exe.config
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Release\bin\Bot.exe
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Release\bin\Bot.pdb
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Release\Bot.csproj.AssemblyReference.cache
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Release\Bot.csproj.CoreCompileInputs.cache
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Release\Bot.csproj.CopyComplete
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Release\Bot.exe
+C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Release\Bot.pdb
