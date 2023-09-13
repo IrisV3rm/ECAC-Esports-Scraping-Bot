@@ -57,6 +57,9 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
 
         public static async Task<bool> IsValidUser(string riotId, bool checkTracker)
         {
+            if (string.IsNullOrEmpty(riotId)) return false;
+            if (string.IsNullOrWhiteSpace(riotId)) return false;
+
             if (!checkTracker)
             {
                 HttpResponseMessage response = await WebViewHandler.PublicClient.GetAsync($"https://api.kyroskoh.xyz/valorant/v1/mmr/NA/{riotId.Replace(" ", "%20").Replace("#", "/")}?show=rankonly&display=0");

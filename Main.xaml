@@ -168,7 +168,7 @@
                     </WrapPanel>
                 </ScrollViewer>
             </Canvas>
-            <Canvas x:Name="LoadingCanvas" Background="#FF202020" Height="371" Width="564" HorizontalAlignment="Left" Canvas.Left="216" VerticalAlignment="Center" Visibility="Hidden">
+            <Canvas x:Name="LoadingCanvas" Background="#FF202020" Height="371" Width="564" HorizontalAlignment="Left" Canvas.Left="216" VerticalAlignment="Center" Visibility="Visible">
                 <Image Name="LoadingGif" Height="165" Canvas.Left="200" Canvas.Top="18" Width="165"/>
                 <TextBlock Name="LoadingTeamStats" Width="376" Canvas.Left="94" Canvas.Top="216" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21">
                     <Run Name="LoadingTeamStatsRun" Text="Loading Team Stats" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="14" />

@@ -33,8 +33,6 @@ namespace Bot.DataTypes
             LossCount = lossCount;
             WinPercent = winPercent;
             Users = users;
-
-            Console.WriteLine(JToken.FromObject(this).ToString());
         }
 
         public async Task SendMessageWithComponents(DiscordChannel channel)

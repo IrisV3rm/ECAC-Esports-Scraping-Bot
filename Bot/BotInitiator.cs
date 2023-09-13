@@ -16,15 +16,16 @@ namespace Bot
             try
             {
                 Program.Log("Starting client instance...");
-                Program.Log($"Token data: {discordToken}");
+                Program.Log($"Token found: {!string.IsNullOrEmpty(discordToken)}");
                 Program.Client = new DiscordClient(new DiscordConfiguration
                 {
                     Token = discordToken,
                     TokenType = TokenType.Bot,
                     Intents = DiscordIntents.AllUnprivileged,
-                    MinimumLogLevel = LogLevel.Trace
+                    MinimumLogLevel = LogLevel.Information,
+                    LogTimestampFormat = "yyyy-MM-dd HH:mm:ss"
                 });
-
+                
                 Program.Log("Registering slash commands...");
                 Program.Slash = Program.Client.UseSlashCommands();
                 Program.TeamViewer = teamViewer;
