@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using ECAC_eSports_Scraper.DataTypes.GameAPIHandles;
-using ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant;
+﻿using ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant;
 
 namespace ECAC_eSports_Scraper.DataTypes.ECAC
 {

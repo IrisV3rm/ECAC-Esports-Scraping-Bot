@@ -18,12 +18,22 @@
         <Canvas x:Name="BotHandleCanvas" Margin="10,53,10,10">
             <ui:NavigationFluent x:Name="RootNavigation" HorizontalAlignment="Left" Height="371" VerticalAlignment="Center" Width="216" Background="{x:Null}" Foreground="{x:Null}">
                 <ui:NavigationFluent.Items>
-                    <ui:NavigationItem x:Name="TeamViewerNav" Width="216" Margin="-30,0,0,0" Content="Team Viewer" Icon="Shield48" IconFilled="True" IsActive="True"/>
+                    <ui:NavigationItem x:Name="BotLog" Width="216" Margin="-30,0,0,0" Content="Bot Log Page" Icon="Bot24" IconFilled="True" IsActive="True"/>
+                    <ui:NavigationItem x:Name="TeamViewerNav" Width="216" Margin="-30,0,0,0" Content="Team Viewer" Icon="Shield48" IconFilled="True"/>
                     <ui:NavigationItem x:Name="UpcomingTeamNav" Width="216" Margin="-30,0,0,0" Content="Upcoming Team Viewer" Icon="Fire24" IconFilled="True"/>
                     <ui:NavigationItem x:Name="SettingsNav" Width="216" Margin="-30,0,0,0" Content="Settings Page" Icon="Settings20" IconFilled="True"/>
-                    <ui:NavigationItem x:Name="BotLog" Width="216" Margin="-30,0,0,0" Content="Bot Log Page" Icon="Bot24" IconFilled="True"/>
-                </ui:NavigationFluent.Items>
+                   </ui:NavigationFluent.Items>
             </ui:NavigationFluent>
+            <Canvas x:Name="BotLogPage" Height="371" Width="564" HorizontalAlignment="Left" Canvas.Left="216" VerticalAlignment="Center" Visibility="Visible">
+                <RichTextBox Margin="6,5,0,0" Width="550" Height="360" BorderBrush="White" BorderThickness=".5">
+                    <FlowDocument Name="LogFlowDoc">
+                        <Paragraph Margin="0,0,0,5">
+                            <Run FontSize="12" Text="[SYSTEM]" Foreground="CornflowerBlue" FontFamily="Consolas"/>
+                            <Run  FontSize="12" Text="Log Started..." Foreground="White" FontFamily="Consolas"></Run>
+                        </Paragraph>
+                    </FlowDocument>
+                </RichTextBox>
+            </Canvas>
             <Canvas x:Name="SettingsCanvas" Height="371" Width="564" HorizontalAlignment="Left" Canvas.Left="216" VerticalAlignment="Center" Visibility="Hidden">
                 <Canvas Name="SettingsTabHandler"  Height="36" Width="564" HorizontalAlignment="Center" VerticalAlignment="Top" Background="#FF191919" >
                     <ui:Button Name="GeneralSettingsNav" Content="General" Canvas.Top="2" Width="93" IsDefault="True" VerticalAlignment="Top" Background="#07FFFFFF"/>
@@ -68,7 +78,7 @@
                     <ui:TextBox Name="EnemyChannelId" Canvas.Left="294" TextWrapping="NoWrap" TextAlignment="Center" PlaceholderEnabled="True" PlaceholderText="1234567890123456789" Canvas.Top="123" Width="218"  />
                 </Canvas>
             </Canvas>
-            <Canvas x:Name="TeamViewerCanvas" Height="371" Width="564" HorizontalAlignment="Left" Canvas.Left="216" VerticalAlignment="Center" Visibility="Visible">
+            <Canvas x:Name="TeamViewerCanvas" Height="371" Width="564" HorizontalAlignment="Left" Canvas.Left="216" VerticalAlignment="Center" Visibility="Hidden">
                 <Border CornerRadius="10" Background="#FF232323" Width="550" Height="81" Canvas.Left="8" Canvas.Top="5" HorizontalAlignment="Center" VerticalAlignment="Top" BorderBrush="#8DB9EE" BorderThickness=".6">
                     <Border.Effect>
                         <DropShadowEffect RenderingBias="Quality" Opacity="0.5"/>
@@ -158,7 +168,7 @@
                     </WrapPanel>
                 </ScrollViewer>
             </Canvas>
-            <Canvas x:Name="LoadingCanvas" Background="#FF202020" Height="371" Width="564" HorizontalAlignment="Left" Canvas.Left="216" VerticalAlignment="Center" Visibility="Visible">
+            <Canvas x:Name="LoadingCanvas" Background="#FF202020" Height="371" Width="564" HorizontalAlignment="Left" Canvas.Left="216" VerticalAlignment="Center" Visibility="Hidden">
                 <Image Name="LoadingGif" Height="165" Canvas.Left="200" Canvas.Top="18" Width="165"/>
                 <TextBlock Name="LoadingTeamStats" Width="376" Canvas.Left="94" Canvas.Top="216" TextAlignment="Center" HorizontalAlignment="Center" VerticalAlignment="Center" Height="21">
                     <Run Name="LoadingTeamStatsRun" Text="Loading Team Stats" Foreground="White" FontFamily="Microsoft YaHei UI" FontSize="14" />

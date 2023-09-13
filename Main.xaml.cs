@@ -7,6 +7,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
+using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
 using ECAC_eSports_Scraper.Classes;
@@ -15,12 +16,12 @@ using ECAC_eSports_Scraper.Classes.SavingLoading;
 using ECAC_eSports_Scraper.DataTypes.ECAC;
 using ECAC_eSports_Scraper.DataTypes.GameAPIHandles;
 using ECAC_eSports_Scraper.DataTypes.GameTypes;
-using ECAC_eSports_Scraper.Methods;
-using Newtonsoft.Json.Linq;
 using Wpf.Ui.Controls;
 using WpfAnimatedGif;
 using static System.Threading.Tasks.Task;
 using Button = Wpf.Ui.Controls.Button;
+using Run = System.Windows.Documents.Run;
+
 // ReSharper disable ConstantNullCoalescingCondition
 
 namespace ECAC_eSports_Scraper
@@ -34,6 +35,34 @@ namespace ECAC_eSports_Scraper
         public static WebViewHandler WebViewHandler = new();
 
         public Main() => InitializeComponent();
+
+        internal void AddToBotLog(string text)
+        {
+            LogFlowDoc.Dispatcher.Invoke(() =>
+            {
+                string prefixData = (text.Contains("[") && text.Contains("]")) ? text.Substring(0, text.IndexOf(@"]", StringComparison.Ordinal)) : "[LOG]";
+                string suffixData = text.Replace(prefixData, "");
+
+                Paragraph paragraph = new();
+                Run prefixRun = new(prefixData);
+                Run suffixRun = new(@" " + suffixData);
+
+                prefixRun.FontFamily = new FontFamily("Consolas");
+                suffixRun.FontFamily = new FontFamily("Consolas");
+
+                prefixRun.FontSize = 12;
+                suffixRun.FontSize = 12;
+
+                prefixRun.Foreground = Brushes.DeepSkyBlue;
+                suffixRun.Foreground = Brushes.White;
+
+                paragraph.Inlines.Add(prefixRun);
+                paragraph.Inlines.Add(suffixRun);
+
+                paragraph.Margin = new Thickness(0, 0, 0, 5);
+                LogFlowDoc.Blocks.Add(paragraph);
+            });
+        }
 
         private void SaveSettings(object sender, RoutedEventArgs e)
         {
@@ -96,7 +125,8 @@ namespace ECAC_eSports_Scraper
             {
                 { TeamViewerNav, TeamViewerCanvas },
                 { UpcomingTeamNav, UpcomingTeamCanvas },
-                { SettingsNav, SettingsCanvas }
+                { SettingsNav, SettingsCanvas },
+                { BotLog, BotLogPage}
             };
 
             foreach (NavigationItem navItem in RootNavigation.Items.OfType<NavigationItem>())
@@ -165,54 +195,54 @@ namespace ECAC_eSports_Scraper
             //EnemyTeamViewerHandler enemyTeamViewer = new(EnemyTeamMembersHolder, TeamMemberTemplate, EnemySchoolName, EnemyTeamName, EnemyGameType, EnemyWinCount, EnemyLossCount, EnemyWinPercent, EnemyTeamIcon);
             //teamViewer.Initialize();
 
-//#pragma warning disable CS4014
-//            Run(() =>
-//#pragma warning restore CS4014
-//            {
-//                while (!(teamViewer.IsLoaded && enemyTeamViewer.IsLoaded))
-//                {
-//                    if (!teamViewer.IsLoaded)
-//                    {
-//                        if (GetTextLength(LoadingTeamStatsRun) >= 21) GlobalMethods.SetRunText(LoadingTeamStatsRun, "Loading Team Stats");
-//                        else GlobalMethods.AddRunText(LoadingTeamStatsRun, ".");
-//                    }
-//                    else
-//                    {
-//                        LoadingTeamStatsRun.Dispatcher.InvokeAsync(() =>
-//                        {
-//                            if (LoadingTeamStatsRun.Text != "Successfully loaded team stats!")
-//                                Application.Current.Dispatcher.Invoke(enemyTeamViewer.Initialize);
-//                        });
+            //#pragma warning disable CS4014
+            //            Run(() =>
+            //#pragma warning restore CS4014
+            //            {
+            //                while (!(teamViewer.IsLoaded && enemyTeamViewer.IsLoaded))
+            //                {
+            //                    if (!teamViewer.IsLoaded)
+            //                    {
+            //                        if (GetTextLength(LoadingTeamStatsRun) >= 21) GlobalMethods.SetRunText(LoadingTeamStatsRun, "Loading Team Stats");
+            //                        else GlobalMethods.AddRunText(LoadingTeamStatsRun, ".");
+            //                    }
+            //                    else
+            //                    {
+            //                        LoadingTeamStatsRun.Dispatcher.InvokeAsync(() =>
+            //                        {
+            //                            if (LoadingTeamStatsRun.Text != "Successfully loaded team stats!")
+            //                                Application.Current.Dispatcher.Invoke(enemyTeamViewer.Initialize);
+            //                        });
 
-//                        GlobalMethods.SetRunText(LoadingTeamStatsRun, "Successfully loaded team stats!");
-//                        GlobalMethods.SetIconVisible(LoadingTeamStatsIcon, true);
+            //                        GlobalMethods.SetRunText(LoadingTeamStatsRun, "Successfully loaded team stats!");
+            //                        GlobalMethods.SetIconVisible(LoadingTeamStatsIcon, true);
 
-//                    }
+            //                    }
 
-//                    if (!enemyTeamViewer.IsLoaded)
-//                    {
-//                        if (GetTextLength(LoadingEnemyStatsRun) >= 33) GlobalMethods.SetRunText(LoadingEnemyStatsRun, "Loading Enemy Team Stats Stats");
-//                        else GlobalMethods.AddRunText(LoadingEnemyStatsRun, ".");
-//                    }
-//                    else
-//                    {
-//                        GlobalMethods.SetRunText(LoadingEnemyStatsRun, "Successfully loaded enemy team stats!");
-//                        GlobalMethods.SetIconVisible(LoadingEnemyStatsIcon, true);
-//                    }
+            //                    if (!enemyTeamViewer.IsLoaded)
+            //                    {
+            //                        if (GetTextLength(LoadingEnemyStatsRun) >= 33) GlobalMethods.SetRunText(LoadingEnemyStatsRun, "Loading Enemy Team Stats Stats");
+            //                        else GlobalMethods.AddRunText(LoadingEnemyStatsRun, ".");
+            //                    }
+            //                    else
+            //                    {
+            //                        GlobalMethods.SetRunText(LoadingEnemyStatsRun, "Successfully loaded enemy team stats!");
+            //                        GlobalMethods.SetIconVisible(LoadingEnemyStatsIcon, true);
+            //                    }
 
-//                    System.Threading.Thread.Sleep(300);
-//                }
+            //                    System.Threading.Thread.Sleep(300);
+            //                }
 
-//                LoadingCanvas.Dispatcher.Invoke(() =>
-//                {
-//                    System.Threading.Thread.Sleep(2000);
-//                    LoadingCanvas.Visibility = Visibility.Hidden;
-//                    _loaded = true;
-//                });
-//            });
+            //                LoadingCanvas.Dispatcher.Invoke(() =>
+            //                {
+            //                    System.Threading.Thread.Sleep(2000);
+            //                    LoadingCanvas.Visibility = Visibility.Hidden;
+            //                    _loaded = true;
+            //                });
+            //            });
 
             //while (!_loaded) await Delay(25);
-            
+
             BotProcess.StartInfo = new ProcessStartInfo
             {
                 FileName = "Bot.exe",
@@ -260,11 +290,13 @@ namespace ECAC_eSports_Scraper
                         }
                         break;
                 }
-                
+                AddToBotLog(data);
             };
 
             BotProcess.Start();
             BotProcess.BeginOutputReadLine();
+
+
         }
 
         public async void SetupWebView()

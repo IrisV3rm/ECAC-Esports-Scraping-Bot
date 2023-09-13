@@ -19,7 +19,7 @@ namespace Bot
     {
         public static void Log(params string[] data)
         {
-            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss zzz}] [Log] {string.Join(" ", data)}");
+            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss zzz}] {string.Join(" ", data)}");
         }
 
         public static DiscordClient Client;

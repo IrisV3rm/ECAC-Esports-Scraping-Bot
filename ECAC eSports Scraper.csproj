@@ -115,6 +115,7 @@
     <Compile Include="Classes\SavingLoading\GlobalProperties.cs" />
     <Compile Include="Classes\SavingLoading\Loading.cs" />
     <Compile Include="Classes\SavingLoading\Saving.cs" />
+    <Compile Include="Classes\Util.cs" />
     <Compile Include="Classes\WebViewHandler.cs" />
     <Compile Include="CustomControls\MessageBox.xaml.cs">
       <DependentUpon>MessageBox.xaml</DependentUpon>

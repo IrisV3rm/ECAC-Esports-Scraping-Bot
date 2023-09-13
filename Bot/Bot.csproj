@@ -154,7 +154,6 @@
     <Compile Include="DataTypes\GameTypes\GlobalGameData.cs" />
     <Compile Include="DataTypes\TeamViewerHandler.cs" />
     <Compile Include="EmbedCreator.cs" />
-    <Compile Include="EmojiHandler.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

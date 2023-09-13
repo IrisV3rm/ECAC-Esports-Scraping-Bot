@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant
+﻿namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant
 {
     public record ValorantAgent(string Name, ValorantAgent.ValorantRole Role, dynamic Avatar, double HoursPlayed, double WinPercentage, double KdRatio)
     {

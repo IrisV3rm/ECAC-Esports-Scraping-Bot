@@ -1,8 +1,6 @@
 ﻿using System;
-using System.Diagnostics;
 using System.Drawing;
 using System.Linq;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
@@ -11,7 +9,6 @@ using System.Windows.Media.Imaging;
 using ECAC_eSports_Scraper.Classes.ECACMethods;
 using ECAC_eSports_Scraper.Classes.GameAPIMethods;
 using ECAC_eSports_Scraper.DataTypes.ECAC;
-using ECAC_eSports_Scraper.DataTypes.GameAPIHandles;
 using ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant;
 using ECAC_eSports_Scraper.DataTypes.GameTypes;
 using Wpf.Ui.Common;
