@@ -147,6 +147,7 @@
     <Compile Include="DataTypes\ECAC\User.cs" />
     <Compile Include="DataTypes\EnemyTeamViewerHandler.cs" />
     <Compile Include="DataTypes\GameAPIHandles\GlobalAPIHandles.cs" />
+    <Compile Include="DataTypes\GameAPIHandles\Valorant\TrackerGGCustomData.cs" />
     <Compile Include="DataTypes\GameAPIHandles\Valorant\TrackerScore.cs" />
     <Compile Include="DataTypes\GameAPIHandles\Valorant\ValorantAgent.cs" />
     <Compile Include="DataTypes\GameAPIHandles\Valorant\ValorantRank.cs" />

@@ -216,8 +216,11 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
             return siteBody.Contains("You are being rate limited");
         }
 
-        public static async Task<string> GetTrackerJson(string riotId)
+        public static async Task<string> GetTrackerJson(string riotId, bool custom = false)
         {
+            if (custom) 
+                return await FetchAndCacheData($"https://api.tracker.gg/api/v2/valorant/standard/profile/riot/{riotId}?type=custom&season=&agent=all&map=all".Replace("#", "%23").Replace(" ", "%20"));
+
             return await FetchAndCacheData($"https://api.tracker.gg/api/v2/valorant/standard/profile/riot/{riotId}?forceCollect=true&source=web".Replace("#", "%23").Replace(" ", "%20"));
         }
 

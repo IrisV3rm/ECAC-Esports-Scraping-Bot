@@ -66,6 +66,7 @@ namespace ECAC_eSports_Scraper.Methods
             {
                 string linkedHandle = await EcacMethods.GetLinkedHandleByType(user.UserId, EcacMethods.HandleTypes.Valorant);
                 user.TrackerStats = await TrackerGg.GetStats(linkedHandle);
+                user.TrackerCustomGames = await TrackerGgCustomData.GetAndParseData(linkedHandle, DateTime.MinValue);
                 ValorantRank currentRank = user.TrackerStats.CurrentRank;
                 ValorantRank peakRank = user.TrackerStats.PeakRank;
                 

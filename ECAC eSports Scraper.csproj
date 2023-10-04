@@ -112,6 +112,7 @@
     </Compile>
     <Compile Include="Classes\ECACMethods\ECACMethods.cs" />
     <Compile Include="Classes\GameAPIMethods\TrackerGG.cs" />
+    <Compile Include="Classes\GameAPIMethods\TrackerGGCustomData.cs" />
     <Compile Include="Classes\SavingLoading\GlobalProperties.cs" />
     <Compile Include="Classes\SavingLoading\Loading.cs" />
     <Compile Include="Classes\SavingLoading\Saving.cs" />
