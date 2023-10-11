@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using ECAC_eSports_Scraper.Classes.GameAPIMethods;
+﻿using ECAC_eSports_Scraper.Classes.GameAPIMethods;
 using ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant;
 
 namespace ECAC_eSports_Scraper.DataTypes.ECAC
@@ -15,10 +14,8 @@ namespace ECAC_eSports_Scraper.DataTypes.ECAC
         public ValorantRank ValorantCurrentRank { get; set; }
         public ValorantRank ValorantPeakRank { get; set; }
         public ValorantTrackerStats TrackerStats { get; set; }
-        public List<MatchDataType.Match> TrackerCustomGames { get; set; }
-
-        //public IEnumerable<Embed> DiscordEmbeds { get; set; }
-
+        public TrackerGgCustomData TrackerCustomGames { get; set; }
+        
         public void SetRiotId(string riotId)
         {
             RiotId = riotId;

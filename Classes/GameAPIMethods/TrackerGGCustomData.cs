@@ -36,6 +36,12 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
 
     public class TrackerGgCustomData : TrackerGg
     {
+        public List<Match> Matches { get; }
+        public TrackerGgCustomData(List<Match> matches)
+        {
+            Matches = matches;
+        }
+
         public static List<Match> CalculateMapWinPercentages(List<MatchData> matchDataList, DateTime cutOff)
         {
             List<Match> matches = new();
@@ -61,16 +67,16 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
             return matches;
         }
         
-        public static async Task<List<Match>> GetAndParseData(string riotId, DateTime cutOff)
+        public static async Task<TrackerGgCustomData> GetAndParseData(string riotId, DateTime cutOff)
         {
-            if (!await IsValidUser(riotId, false)) return new List<Match>();
-            if (!await IsValidUser(riotId, true)) return new List<Match>();
+            if (!await IsValidUser(riotId, false)) return DefaultStats();
+            if (!await IsValidUser(riotId, true)) return DefaultStats();
             if (await TrackerRateLimitCheck(riotId)) Process.GetCurrentProcess().Kill();
 
             string jsonData = await GetTrackerJson(riotId, true);
             JToken json = JToken.Parse(jsonData);
 
-            if (json["data"]?["matches"] is null) return new List<Match>();
+            if (json["data"]?["matches"] is null) return DefaultStats();
 
             List<MatchData> matches = (
                 json["data"]?["matches"]!.Select(
@@ -84,7 +90,29 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
                 )
             ) ?? Array.Empty<MatchData>()).ToList();
 
-            return CalculateMapWinPercentages(matches, cutOff);
+            return new TrackerGgCustomData(CalculateMapWinPercentages(matches, DateTime.MinValue));
+        }
+
+        public static TrackerGgCustomData DefaultStats()
+        {
+            return new TrackerGgCustomData(
+                new List<Match>
+                {
+                    new Match(
+                        new MatchData(
+                        "N/A",
+                        "N/A",
+                        "N/A",
+                        0,
+                        0,
+                        0
+                    ),
+                    new MapWinPercentage(
+                        "N/A",
+                        0.0
+                        )
+                    )
+                });
         }
     }
 }

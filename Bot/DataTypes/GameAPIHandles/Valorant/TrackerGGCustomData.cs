@@ -1,4 +1,7 @@
-﻿namespace Bot.DataTypes.GameAPIHandles.Valorant
+﻿using static Bot.DataTypes.GameAPIHandles.Valorant.MatchDataType;
+using System.Collections.Generic;
+
+namespace Bot.DataTypes.GameAPIHandles.Valorant
 {
     public class MatchDataType
     {
@@ -24,5 +27,36 @@
             public double WinPercentage { get; set; } = WinPercentage;
         }
 
+    }
+
+    public class TrackerGgCustomData
+    {
+        public List<Match> Matches { get; }
+        public TrackerGgCustomData(List<Match> matches)
+        {
+            Matches = matches;
+        }
+
+        public static TrackerGgCustomData DefaultStats()
+        {
+            return new TrackerGgCustomData(
+                new List<Match>
+                {
+                    new Match(
+                        new MatchData(
+                        "N/A",
+                        "N/A",
+                        "N/A",
+                        0,
+                        0,
+                        0
+                    ),
+                    new MapWinPercentage(
+                        "N/A",
+                        0.0
+                        )
+                    )
+                });
+        }
     }
 }

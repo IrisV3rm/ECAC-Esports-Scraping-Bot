@@ -402,7 +402,6 @@ mkdir "bin"
 del *.xml
 del *.pdb
 del *.config
- xcopy /f /y /e "$(ProjectDir)\Images\ValorantAssets" "$(TargetDir)bin\ImageAssets\ValorantAsset\"
 @if "$(ConfigurationName)"=="Release" (
     move /y runtimes bin
     for %25%25A in (*) do if not "%25%25~xA"=="" move /Y "%25%25A" "bin\"

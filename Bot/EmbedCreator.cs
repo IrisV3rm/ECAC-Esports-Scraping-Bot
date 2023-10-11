@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Bot.DataTypes;
 using Bot.DataTypes.ECAC;
 using Bot.DataTypes.GameAPIHandles.Valorant;
@@ -22,7 +23,7 @@ namespace Bot
             foreach (User user in users)
             {
                 string trackerStatus = ":white_check_mark:";
-                if (user.TrackerStats?.PeakRank == null || user.TrackerStats?.TopAgent?.Name == "N/A")
+                if (user.TrackerStats?.PeakRank is null || user.TrackerStats?.TopAgent?.Name == "N/A")
                 {
                     trackerStatus = ":x:";
                     user.TrackerStats = ValorantTrackerStats.DefaultStats();
@@ -43,7 +44,8 @@ namespace Bot
                     .WithAuthor("Account Rankings", null, "https://irisapp.ca/api/Dev/ecac-scraping/valorant-hexagon.png")
                     .WithColor(RankColor)
                     .AddField("Current Rank", user.ValorantCurrentRank.Rank, true)
-                    .AddField("Peak Rank", user.ValorantPeakRank.Rank, true);
+                    .AddField("Peak Rank", user.ValorantPeakRank.Rank, true)
+                    .WithImageUrl(RankIcons.RankIcon[user.ValorantCurrentRank.Rank]);
 
                 DiscordEmbedBuilder trackerStats = new DiscordEmbedBuilder()
                     .WithAuthor("User Tracker Statistics", null, "https://irisapp.ca/api/Dev/ecac-scraping/trackerNet.png")
@@ -58,7 +60,19 @@ namespace Bot
                 DiscordEmbedBuilder trackerStats3 = new DiscordEmbedBuilder()
                     .WithColor(PinkColor)
                     .AddField("Top Competitive Agent", user.TrackerStats?.TopAgent?.Name, true)
-                    .AddField("Agent Type", user.TrackerStats?.TopAgent?.Role.ToString(), true);
+                    .AddField("Agent Type", user.TrackerStats?.TopAgent?.Role.ToString(), true)
+                    .WithAuthor("", "", AgentData.RoleIcon[
+                        (AgentData.AgentClass)Enum.Parse(
+                            typeof(AgentData.AgentClass),
+                            user.TrackerStats?.TopAgent?.Role.ToString() ?? "Sentinel"
+                        )
+                    ])
+                    .WithImageUrl(AgentData.AgentHeadshot[
+                        (AgentData.Agent)Enum.Parse(
+                            typeof(AgentData.Agent),
+                            user.TrackerStats?.TopAgent?.Name ?? "Sage"
+                        )
+                    ]);
 
                 DiscordEmbedBuilder trackerStats5 = new DiscordEmbedBuilder()
                     .WithColor(PinkColor)
