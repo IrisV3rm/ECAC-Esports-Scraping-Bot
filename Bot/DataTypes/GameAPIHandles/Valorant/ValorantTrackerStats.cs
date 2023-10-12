@@ -16,8 +16,8 @@
         public static ValorantTrackerStats DefaultStats()
         {
             return new ValorantTrackerStats(
-                new ValorantAgent("N/A", ValorantAgent.ValorantRole.Controller, "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png", 0.0, 0.0, 0.0),
-                ValorantAgent.ValorantRole.Controller,
+                new ValorantAgent("Sage", ValorantAgent.ValorantRole.Sentinel, "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png", 0.0, 0.0, 0.0),
+                ValorantAgent.ValorantRole.Sentinel,
                 new TrackerScore(0, 0.0, 0.0, 0.0, 0.0),
                 "0%",
                 "0%",

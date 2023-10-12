@@ -29,12 +29,6 @@ namespace Bot
         public static string TeamChannelId;
         public static string EnemyChannelId;
 
-#if DEBUG
-        public static string ImageAssetLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\bin\ImageAssets";
-#else
-        public static string ImageAssetLocation = $@"{AppDomain.CurrentDomain.BaseDirectory}\ImageAssets";
-#endif
-
         static void Main(string[] args)
         {
             try

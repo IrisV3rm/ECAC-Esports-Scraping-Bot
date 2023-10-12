@@ -43,7 +43,7 @@ namespace ECAC_eSports_Scraper
             LogFlowDoc.Dispatcher.Invoke(() =>
             {
                 string prefixData = (text.Contains("[") && text.Contains("]")) ? text.Substring(0, text.LastIndexOf(@"]", StringComparison.Ordinal) + 2) : "[LOG]";
-                string suffixData = text.Replace(prefixData, "");
+                string suffixData = text.Replace(prefixData, "").Replace("ERROR_DETECTED", "");
 
                 Paragraph paragraph = new();
                 Run prefixRun = new(prefixData);
@@ -55,7 +55,11 @@ namespace ECAC_eSports_Scraper
                 prefixRun.FontSize = 12;
                 suffixRun.FontSize = 12;
 
-                prefixRun.Foreground = Brushes.DeepSkyBlue;
+                if (text.Contains("ERROR_DETECTED"))
+                    prefixRun.Foreground = Brushes.Red;
+                else
+                    prefixRun.Foreground = Brushes.DeepSkyBlue;
+
                 suffixRun.Foreground = Brushes.White;
 
                 paragraph.Inlines.Add(prefixRun);
@@ -258,7 +262,7 @@ namespace ECAC_eSports_Scraper
 
             BotProcess.ErrorDataReceived += (_, args) =>
             {
-                Debug.WriteLine($"ERROR: {args.Data}");
+                AddToBotLog($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] ERROR_DETECTED{args.Data}");
             };
 
             BotProcess.OutputDataReceived += (_, args) =>

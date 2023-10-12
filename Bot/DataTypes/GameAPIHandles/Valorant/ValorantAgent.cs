@@ -12,6 +12,7 @@ namespace Bot.DataTypes.GameAPIHandles.Valorant
             Chamber,
             Cypher,
             Fade,
+            Gekko,
             Harbor,
             Jett,
             // ReSharper disable once InconsistentNaming
@@ -26,7 +27,8 @@ namespace Bot.DataTypes.GameAPIHandles.Valorant
             Skye,
             Sova,
             Viper,
-            Yoru
+            Yoru,
+            None
         }
 
         public enum AgentClass
@@ -34,7 +36,8 @@ namespace Bot.DataTypes.GameAPIHandles.Valorant
             Controller,
             Duelist,
             Initiator,
-            Sentinel
+            Sentinel,
+            None
         }
 
         public static Dictionary<Agent, string> AgentHeadshot = new()
@@ -45,6 +48,7 @@ namespace Bot.DataTypes.GameAPIHandles.Valorant
             { Agent.Chamber, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Chamber.png" },
             { Agent.Cypher, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Cypher.png" },
             { Agent.Fade, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Fade.png" },
+            { Agent.Gekko, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Gekko.png" },
             { Agent.Harbor, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Harbor.png" },
             { Agent.Jett, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Jett.png" },
             { Agent.KAYO, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/KAYO.png" },
@@ -58,7 +62,8 @@ namespace Bot.DataTypes.GameAPIHandles.Valorant
             { Agent.Skye, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Skye.png" },
             { Agent.Sova, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Sova.png" },
             { Agent.Viper, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Viper.png" },
-            { Agent.Yoru, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Yoru.png" }
+            { Agent.Yoru, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Yoru.png" },
+            { Agent.None, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Sage.png" }
         };
 
         public static Dictionary<AgentClass, string> RoleIcon = new()
@@ -66,7 +71,8 @@ namespace Bot.DataTypes.GameAPIHandles.Valorant
             { AgentClass.Controller, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/ControllerClassSymbol.png"},
             { AgentClass.Duelist, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/DuelistClassSymbol.png"},
             { AgentClass.Initiator, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/InitiatorClassSymbol.png"},
-            { AgentClass.Sentinel, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/SentinelClassSymbol.png"}
+            { AgentClass.Sentinel, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/SentinelClassSymbol.png"},
+            { AgentClass.None, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/SentinelClassSymbol.png" }
         };
     }
 
@@ -78,6 +84,7 @@ namespace Bot.DataTypes.GameAPIHandles.Valorant
             Sentinel,
             Controller,
             Initiator,
+            None
         }
 
         public string Name { get; set; } = Name;

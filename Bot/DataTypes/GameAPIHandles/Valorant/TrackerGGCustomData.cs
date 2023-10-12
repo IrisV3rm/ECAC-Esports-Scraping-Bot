@@ -46,7 +46,7 @@ namespace Bot.DataTypes.GameAPIHandles.Valorant
                         new MatchData(
                         "N/A",
                         "N/A",
-                        "N/A",
+                        "Sage",
                         0,
                         0,
                         0

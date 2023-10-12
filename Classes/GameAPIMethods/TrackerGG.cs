@@ -17,8 +17,8 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
         public static ValorantTrackerStats GetDefaultTrackerStats()
         {
             return new ValorantTrackerStats(
-                new ValorantAgent("N/A", ValorantAgent.ValorantRole.Controller, "", 0.0, 0.0, 0.0),
-                ValorantAgent.ValorantRole.Controller,
+                new ValorantAgent("Sage", ValorantAgent.ValorantRole.Sentinel, "", 0.0, 0.0, 0.0),
+                ValorantAgent.ValorantRole.Sentinel,
                 new TrackerScore(0, 0.0, 0.0, 0.0, 0.0),
                 "0%",
                 "0%",

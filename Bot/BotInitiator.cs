@@ -44,6 +44,17 @@ namespace Bot
                     await enemyTeamViewer.DoCommand(enemyChannelId);
                 };
 
+                Program.Client.ClientErrored += (sender, args) =>
+                {
+                    Program.Log("ERROR_DETECTED", args.Exception.ToString());
+                    return Task.CompletedTask;
+                };
+                Program.Client.SocketErrored += (sender, args) =>
+                {
+                    Program.Log("ERROR_DETECTED", args.Exception.ToString());
+                    return Task.CompletedTask;
+                };
+
                 Program.Client.ConnectAsync(new DiscordActivity("ECAC eSports", ActivityType.Competing), UserStatus.Online);
 
                 Task.Delay(-1);

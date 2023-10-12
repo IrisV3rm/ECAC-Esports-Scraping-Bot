@@ -23,7 +23,7 @@ namespace Bot
             foreach (User user in users)
             {
                 string trackerStatus = ":white_check_mark:";
-                if (user.TrackerStats?.PeakRank is null || user.TrackerStats?.TopAgent?.Name == "N/A")
+                if (user.TrackerStats?.PeakRank is null)
                 {
                     trackerStatus = ":x:";
                     user.TrackerStats = ValorantTrackerStats.DefaultStats();
@@ -45,7 +45,7 @@ namespace Bot
                     .WithColor(RankColor)
                     .AddField("Current Rank", user.ValorantCurrentRank.Rank, true)
                     .AddField("Peak Rank", user.ValorantPeakRank.Rank, true)
-                    .WithImageUrl(RankIcons.RankIcon[user.ValorantCurrentRank.Rank]);
+                    .WithThumbnail(RankIcons.RankIcon[user.ValorantCurrentRank.Rank], 35, 35);
 
                 DiscordEmbedBuilder trackerStats = new DiscordEmbedBuilder()
                     .WithAuthor("User Tracker Statistics", null, "https://irisapp.ca/api/Dev/ecac-scraping/trackerNet.png")
@@ -61,18 +61,23 @@ namespace Bot
                     .WithColor(PinkColor)
                     .AddField("Top Competitive Agent", user.TrackerStats?.TopAgent?.Name, true)
                     .AddField("Agent Type", user.TrackerStats?.TopAgent?.Role.ToString(), true)
-                    .WithAuthor("", "", AgentData.RoleIcon[
+                    .WithFooter("", AgentData.RoleIcon[
                         (AgentData.AgentClass)Enum.Parse(
                             typeof(AgentData.AgentClass),
                             user.TrackerStats?.TopAgent?.Role.ToString() ?? "Sentinel"
                         )
                     ])
-                    .WithImageUrl(AgentData.AgentHeadshot[
+                    .WithThumbnail(AgentData.AgentHeadshot[
                         (AgentData.Agent)Enum.Parse(
                             typeof(AgentData.Agent),
                             user.TrackerStats?.TopAgent?.Name ?? "Sage"
                         )
-                    ]);
+                    ],35,35);
+
+                DiscordEmbedBuilder trackerStats4 = new DiscordEmbedBuilder()
+                    .WithColor(PinkColor)
+                    .AddField("Customs Data", user.TrackerStats?.TopAgent?.Name, true)
+                    .AddField("Top Agent", user.TrackerStats?.TopAgent?.Role.ToString(), true);
 
                 DiscordEmbedBuilder trackerStats5 = new DiscordEmbedBuilder()
                     .WithColor(PinkColor)
@@ -85,6 +90,7 @@ namespace Bot
                 DiscordEmbed trackerStatsEmbed = trackerStats.Build();
                 DiscordEmbed trackerStatsEmbed2 = trackerStats2.Build();
                 DiscordEmbed trackerStatsEmbed3 = trackerStats3.Build();
+                DiscordEmbed trackerStatsEmbed4 = trackerStats4.Build();
                 DiscordEmbed trackerStatsEmbed5 = trackerStats5.Build();
 
                 user.DiscordEmbeds = new List<DiscordEmbed>
@@ -95,6 +101,7 @@ namespace Bot
                     trackerStatsEmbed,
                     trackerStatsEmbed2,
                     trackerStatsEmbed3,
+                    trackerStatsEmbed4,
                     trackerStatsEmbed5
                 };
             }

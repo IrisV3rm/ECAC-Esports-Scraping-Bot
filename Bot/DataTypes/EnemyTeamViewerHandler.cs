@@ -46,11 +46,11 @@ namespace Bot.DataTypes
 
         public async Task DoCommand(string enemyChannelId)
         {
-            DiscordChannel enemyChannel = Program.Client.GetChannelAsync(ulong.Parse(enemyChannelId)).Result;
-            EmbedCreator.CreateTeamEmbedData(this);
-            await SendMessageWithComponents(enemyChannel);
+            //DiscordChannel enemyChannel = Program.Client.GetChannelAsync(ulong.Parse(enemyChannelId)).Result;
+            //EmbedCreator.CreateTeamEmbedData(this);
+            //await SendMessageWithComponents(enemyChannel);
 
-            Program.Client.ComponentInteractionCreated += InteractionHandler;
+            //Program.Client.ComponentInteractionCreated += InteractionHandler;
         }
 
         private async Task InteractionHandler(DiscordClient sender, InteractionCreateEventArgs args)

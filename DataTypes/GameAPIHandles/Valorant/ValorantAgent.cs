@@ -8,6 +8,7 @@
             Sentinel,
             Controller,
             Initiator,
+            None
         }
 
         public string Name { get; set; } = Name;

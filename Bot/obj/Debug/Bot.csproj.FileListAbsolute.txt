@@ -39,14 +39,6 @@ G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\bin\Debug\System.R
 G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\bin\Debug\System.Runtime.CompilerServices.Unsafe.xml
 G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\bin\Debug\System.Threading.Tasks.Extensions.xml
 G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\bin\Debug\System.ValueTuple.xml
-G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\bin\Debug\Bot.exe.config
-G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\bin\Debug\Bot.exe
-G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\bin\Debug\Bot.pdb
-G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.csproj.AssemblyReference.cache
-G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.csproj.CoreCompileInputs.cache
-G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.csproj.CopyComplete
-G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.exe
-G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.pdb
 C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Debug\Bot.exe.config
 C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Debug\Bot.exe
 C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\bin\Debug\Bot.pdb
@@ -55,3 +47,11 @@ C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\
 C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\Bot.csproj.CopyComplete
 C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\Bot.exe
 C:\Users\irisd\OneDrive\Desktop\Sources\ECAC-Esports-Scraping-Bot\Bot\obj\Debug\Bot.pdb
+G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\bin\Debug\Bot.exe.config
+G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\bin\Debug\Bot.exe
+G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\bin\Debug\Bot.pdb
+G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.csproj.AssemblyReference.cache
+G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.csproj.CoreCompileInputs.cache
+G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.csproj.CopyComplete
+G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.exe
+G:\Sources\C#\Public Source Releases\ECAC eSports Scraper\Bot\obj\Debug\Bot.pdb
