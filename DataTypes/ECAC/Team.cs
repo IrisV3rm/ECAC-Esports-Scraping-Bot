@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
-using ECAC_eSports_Scraper.DataTypes.GameTypes;
+using ECAC_eSports.DataTypes.GameTypes;
 
-namespace ECAC_eSports_Scraper.DataTypes.ECAC
+namespace ECAC_eSports.DataTypes.ECAC
 {
     public record Team(string Id, string LogoUrl, string Name, List<User> Members, string SchoolName, GlobalGameData.Games Game)
     {

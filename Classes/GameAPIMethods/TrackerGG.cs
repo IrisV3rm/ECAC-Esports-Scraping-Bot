@@ -5,10 +5,10 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Windows;
-using ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant;
+using ECAC_eSports.DataTypes.GameAPIHandles.Valorant;
 using Newtonsoft.Json.Linq;
 
-namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
+namespace ECAC_eSports.Classes.GameAPIMethods
 {
     public class TrackerGg
     {
@@ -29,9 +29,46 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
             );
         }
 
+        public static async Task<string> GetTrackerJson(string url)
+        {
+            return await Task.Run(() =>
+            {
+                Process botProcess = new();
+                string jsonData = string.Empty;
+                botProcess.StartInfo = new ProcessStartInfo
+                {
+                    FileName = "BypassCF.exe",
+                    RedirectStandardOutput = true,
+                    RedirectStandardInput = false,
+                    RedirectStandardError = true,
+                    UseShellExecute = false,
+                    Arguments = $"{url}",
+                    CreateNoWindow = true
+                };
+
+                botProcess.ErrorDataReceived += (_, args) =>
+                {
+                    Debug.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] ERROR_DETECTED{args.Data}");
+                    botProcess.Kill();
+                };
+
+                botProcess.OutputDataReceived += (_, args) =>
+                {
+                    botProcess.Kill();
+                    Debug.WriteLine($"GOTDATA {args.Data}");
+                };
+
+                botProcess.Start();
+                botProcess.BeginOutputReadLine();
+                botProcess.WaitForExit();
+
+                return jsonData;
+            });
+        } 
+
         public static async Task<ValorantRank> GetCurrentRank(string riotId)
         {
-            HttpResponseMessage response = await WebViewHandler.PublicClient.GetAsync($"https://api.kyroskoh.xyz/valorant/v1/mmr/NA/{riotId.Replace(" ", "%20").Replace("#", "/")}?show=rankonly&display=0");
+            HttpResponseMessage response = await Main.MainClient.GetAsync($"https://api.kyroskoh.xyz/valorant/v1/mmr/NA/{riotId.Replace(" ", "%20").Replace("#", "/")}?show=rankonly&display=0");
             string rank = await response.Content.ReadAsStringAsync();
             
             return !rank.Contains("failed") ? new ValorantRank(rank, Properties.Resources.ResourceManager.GetObject(rank.Replace(" ", "_"))) : new ValorantRank("Unranked", "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png");
@@ -62,7 +99,7 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
 
             if (!checkTracker)
             {
-                HttpResponseMessage response = await WebViewHandler.PublicClient.GetAsync($"https://api.kyroskoh.xyz/valorant/v1/mmr/NA/{riotId.Replace(" ", "%20").Replace("#", "/")}?show=rankonly&display=0");
+                HttpResponseMessage response = await Main.MainClient.GetAsync($"https://api.kyroskoh.xyz/valorant/v1/mmr/NA/{riotId.Replace(" ", "%20").Replace("#", "/")}?show=rankonly&display=0");
                 string rank = await response.Content.ReadAsStringAsync();
                 return !rank.Contains("failed");
             }
@@ -211,7 +248,7 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
 
         public static async Task<bool> TrackerRateLimitCheck(string riotId)
         {
-            string siteBody = await Main.WebViewHandler.NavigateAndGetSource($"https://api.tracker.gg/api/v2/valorant/standard/profile/riot/{riotId}?forceCollect=true&source=web".Replace("#", "%23").Replace(" ", "%20"));
+            string siteBody = await GetTrackerJson($"https://api.tracker.gg/api/v2/valorant/standard/profile/riot/{riotId}?forceCollect=true&source=web".Replace("#", "%23").Replace(" ", "%20"));
             
             return siteBody.Contains("You are being rate limited");
         }
@@ -289,7 +326,7 @@ namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
         {
             Debug.WriteLine($"Fetching: {url}");
             
-            string siteBody = await Main.WebViewHandler.NavigateAndGetSource(url.Replace("#", "%23").Replace(" ", "%20"));
+            string siteBody = await GetTrackerJson(url.Replace("#", "%23").Replace(" ", "%20"));
             siteBody = siteBody.Substring(siteBody.IndexOf('{'));
 
             int endIndex = siteBody.Contains("\\u0")

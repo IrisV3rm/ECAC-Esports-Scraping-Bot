@@ -1,7 +1,7 @@
-﻿using ECAC_eSports_Scraper.Classes.GameAPIMethods;
-using ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant;
+﻿using ECAC_eSports.Classes.GameAPIMethods;
+using ECAC_eSports.DataTypes.GameAPIHandles.Valorant;
 
-namespace ECAC_eSports_Scraper.DataTypes.ECAC
+namespace ECAC_eSports.DataTypes.ECAC
 {
     public record User(string EcacName, string RoleId, string UserId, string DiscordHandle)
     {

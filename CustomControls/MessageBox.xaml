@@ -1,4 +1,4 @@
-﻿<ui:UiWindow x:Class="ECAC_eSports_Scraper.CustomControls.CustomMessageBox"
+﻿<ui:UiWindow x:Class="ECAC_eSports.CustomControls.CustomMessageBox"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"

@@ -1,7 +1,7 @@
 ﻿using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
-namespace ECAC_eSports_Scraper.Classes
+namespace ECAC_eSports.Classes
 {
     public class Util
     {

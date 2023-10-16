@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports_Scraper.DataTypes.GameTypes
+﻿namespace ECAC_eSports.DataTypes.GameTypes
 {
     public class GlobalGameData
     {

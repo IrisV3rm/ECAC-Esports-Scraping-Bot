@@ -4,19 +4,20 @@ using System.Diagnostics;
 using System.IO;
 using System.IO.Pipes;
 using System.Linq;
+using System.Net.Http;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Animation;
 using System.Windows.Media.Imaging;
-using ECAC_eSports_Scraper.Classes;
-using ECAC_eSports_Scraper.Classes.ECACMethods;
-using ECAC_eSports_Scraper.Classes.SavingLoading;
-using ECAC_eSports_Scraper.DataTypes.ECAC;
-using ECAC_eSports_Scraper.DataTypes.GameAPIHandles;
-using ECAC_eSports_Scraper.DataTypes.GameTypes;
-using ECAC_eSports_Scraper.Methods;
+using ECAC_eSports.Classes.ECACMethods;
+using ECAC_eSports.Classes.GameAPIMethods;
+using ECAC_eSports.Classes.SavingLoading;
+using ECAC_eSports.DataTypes.ECAC;
+using ECAC_eSports.DataTypes.GameAPIHandles;
+using ECAC_eSports.DataTypes.GameTypes;
+using ECAC_eSports.Methods;
 using Newtonsoft.Json.Linq;
 using Wpf.Ui.Controls;
 using WpfAnimatedGif;
@@ -26,7 +27,7 @@ using Run = System.Windows.Documents.Run;
 
 // ReSharper disable ConstantNullCoalescingCondition
 
-namespace ECAC_eSports_Scraper
+namespace ECAC_eSports
 {
     public partial class Main
     {
@@ -34,7 +35,7 @@ namespace ECAC_eSports_Scraper
         private bool _canRun;
         private bool _loaded;
 
-        public static WebViewHandler WebViewHandler = new();
+        public static HttpClient MainClient = new();
 
         public Main() => InitializeComponent();
 
@@ -55,10 +56,7 @@ namespace ECAC_eSports_Scraper
                 prefixRun.FontSize = 12;
                 suffixRun.FontSize = 12;
 
-                if (text.Contains("ERROR_DETECTED"))
-                    prefixRun.Foreground = Brushes.Red;
-                else
-                    prefixRun.Foreground = Brushes.DeepSkyBlue;
+                prefixRun.Foreground = text.Contains("ERROR_DETECTED") ? Brushes.Red : Brushes.DeepSkyBlue;
 
                 suffixRun.Foreground = Brushes.White;
 
@@ -304,17 +302,6 @@ namespace ECAC_eSports_Scraper
 
             BotProcess.Start();
             BotProcess.BeginOutputReadLine();
-
-
-        }
-
-        public async void SetupWebView()
-        {
-            if (Directory.Exists("ECAC eSports Scraper.exe.WebView2"))
-                Directory.Delete("ECAC eSports Scraper.exe.WebView2", true);
-
-            await WebViewHandler.InitWebView(MainView);
-            App.EcacAuthorization = await EcacMethods.SignIn(ECACUsernameTextBox.Text, ECACPasswordTextBox.Password);
         }
 
         private async void OnLoaded(object sender, RoutedEventArgs e)
@@ -330,7 +317,11 @@ namespace ECAC_eSports_Scraper
 
             if (!_canRun) return;
 
-            SetupWebView();
+            App.EcacAuthorization = await EcacMethods.SignIn(ECACUsernameTextBox.Text, ECACPasswordTextBox.Password);
+
+            Console.WriteLine(TrackerGg.GetTrackerJson("https://api.tracker.gg/api/v2/valorant/standard/profile/riot/Cinnamon%20Toast%23Krunc?forceCollect=true&source=web"));
+
+            return;
             while (string.IsNullOrEmpty(App.EcacAuthorization)) await Delay(50);
             SetupInitializers();
         }

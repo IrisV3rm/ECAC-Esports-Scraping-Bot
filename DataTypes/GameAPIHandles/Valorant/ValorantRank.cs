@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant
+namespace ECAC_eSports.DataTypes.GameAPIHandles.Valorant
 {
     public record ValorantRank(string Rank, dynamic RankIcon)
     {

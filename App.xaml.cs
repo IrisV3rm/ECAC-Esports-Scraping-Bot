@@ -1,8 +1,8 @@
-﻿using ECAC_eSports_Scraper.CustomControls;
-using System.Windows;
+﻿using System.Windows;
+using ECAC_eSports.CustomControls;
 using Newtonsoft.Json.Linq;
 
-namespace ECAC_eSports_Scraper
+namespace ECAC_eSports
 {
     /// <summary>
     /// Interaction logic for App.xaml

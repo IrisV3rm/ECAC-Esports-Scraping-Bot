@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant
+﻿namespace ECAC_eSports.DataTypes.GameAPIHandles.Valorant
 {
     public record ValorantTrackerStats(ValorantAgent TopAgent, ValorantAgent.ValorantRole Role, TrackerScore TrackerScore, string WinPercentage, string HeadshotPercentage, string KdRatio, string AverageDamagePerRound, ValorantRank PeakRank, ValorantRank CurrentRank)
     {

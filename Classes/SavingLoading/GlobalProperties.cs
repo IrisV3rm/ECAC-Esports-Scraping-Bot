@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace ECAC_eSports_Scraper.Classes.SavingLoading
+namespace ECAC_eSports.Classes.SavingLoading
 {
     public static class GlobalProperties
     {

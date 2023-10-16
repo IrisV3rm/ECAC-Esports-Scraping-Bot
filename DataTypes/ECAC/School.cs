@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports_Scraper.DataTypes.ECAC
+﻿namespace ECAC_eSports.DataTypes.ECAC
 {
     public record School
     {

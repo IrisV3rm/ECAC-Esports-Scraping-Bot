@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles
+﻿namespace ECAC_eSports.DataTypes.GameAPIHandles
 {
     public class GlobalApiHandles
     {

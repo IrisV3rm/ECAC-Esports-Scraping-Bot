@@ -4,9 +4,9 @@ using System.Diagnostics;
 using System.Linq;
 using System.Threading.Tasks;
 using Newtonsoft.Json.Linq;
-using static ECAC_eSports_Scraper.Classes.GameAPIMethods.MatchDataType;
+using static ECAC_eSports.Classes.GameAPIMethods.MatchDataType;
 
-namespace ECAC_eSports_Scraper.Classes.GameAPIMethods
+namespace ECAC_eSports.Classes.GameAPIMethods
 {
     public class MatchDataType
     {

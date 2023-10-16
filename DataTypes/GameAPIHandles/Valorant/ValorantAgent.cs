@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant
+﻿namespace ECAC_eSports.DataTypes.GameAPIHandles.Valorant
 {
     public record ValorantAgent(string Name, ValorantAgent.ValorantRole Role, dynamic Avatar, double HoursPlayed, double WinPercentage, double KdRatio)
     {

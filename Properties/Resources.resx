@@ -118,169 +118,19 @@
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
   <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="Ascendant_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ascendant 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ascendant_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ascendant 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Ascendant_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Ascendant 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Astra" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Astra.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Breach" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Breach.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Brimstone" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Brimstone.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Bronze_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bronze 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Bronze_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bronze 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Bronze_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Bronze 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Chamber" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Chamber.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="ControllerClassSymbol" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\ControllerClassSymbol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Cypher" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Cypher.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Diamond_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Diamond 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Diamond_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Diamond 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Diamond_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Diamond 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="DuelistClassSymbol" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\DuelistClassSymbol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="error" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\error.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="exclamation" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\exclamation.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Fade" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Fade.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gold_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gold 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gold_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gold 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Gold_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Gold 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Harbor" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Harbor.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Immortal_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Immortal 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Immortal_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Immortal 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Immortal_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Immortal 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="information" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\information.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="InitiatorClassSymbol" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\InitiatorClassSymbol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Iron_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Iron 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Iron_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Iron 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Iron_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Iron 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Jett" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Jett.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="KAYO" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\KAYO.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Killjoy" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Killjoy.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
   <data name="loading_gif" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\loading-gif.gif;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
-  <data name="Neon" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Neon.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Omen" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Omen.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Phoenix" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Phoenix.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Platinum_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Platinum 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Platinum_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Platinum 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Platinum_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Platinum 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
   <data name="question" type="System.Resources.ResXFileRef, System.Windows.Forms">
     <value>..\Resources\question.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Radiant" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Radiant.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Raze" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Raze.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Reyna" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Reyna.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Sage" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sage.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="SentinelClassSymbol" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\SentinelClassSymbol.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Silver_1" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Silver 1.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Silver_2" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Silver 2.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Silver_3" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Silver 3.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Skye" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Skye.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Sova" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Sova.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Unranked" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Unranked.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Viper" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Viper.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
-  </data>
-  <data name="Yoru" type="System.Resources.ResXFileRef, System.Windows.Forms">
-    <value>..\Resources\Yoru.png;System.Drawing.Bitmap, System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a</value>
   </data>
 </root>

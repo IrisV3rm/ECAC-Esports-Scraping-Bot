@@ -6,15 +6,16 @@ using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
 using Brotli;
-using ECAC_eSports_Scraper.DataTypes.ECAC;
-using ECAC_eSports_Scraper.DataTypes.GameTypes;
+using ECAC_eSports.DataTypes.ECAC;
+using ECAC_eSports.DataTypes.GameTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+
 // ReSharper disable PossibleInvalidCastExceptionInForeachLoop
 // ReSharper disable once PossibleLossOfFraction
 // ReSharper disable IdentifierTypo
 
-namespace ECAC_eSports_Scraper.Classes.ECACMethods
+namespace ECAC_eSports.Classes.ECACMethods
 {
     public class EcacMethods
     {
@@ -56,16 +57,16 @@ namespace ECAC_eSports_Scraper.Classes.ECACMethods
         
         internal static async Task<JToken> SendGetNetRequest(string getUrl)
         {
-            WebViewHandler.PublicClient.DefaultRequestHeaders.Clear();
-            WebViewHandler.PublicClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
-            WebViewHandler.PublicClient.DefaultRequestHeaders.Add("X-League-Id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
-            WebViewHandler.PublicClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.EcacAuthorization);
+            Main.MainClient.DefaultRequestHeaders.Clear();
+            Main.MainClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
+            Main.MainClient.DefaultRequestHeaders.Add("X-League-Id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
+            Main.MainClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.EcacAuthorization);
 
-            using HttpResponseMessage response = await WebViewHandler.PublicClient.GetAsync(getUrl);
+            using HttpResponseMessage response = await Main.MainClient.GetAsync(getUrl);
             
             byte[] decompressedContent = (await response.Content.ReadAsByteArrayAsync()).DecompressFromBrotli();
 
-            WebViewHandler.PublicClient.DefaultRequestHeaders.Clear();
+            Main.MainClient.DefaultRequestHeaders.Clear();
 
             return JToken.Parse(response.Content.ReadAsStringAsync().Result.Contains("Invalid league") ? "{}" : Encoding.UTF8.GetString(decompressedContent));
         }
@@ -86,15 +87,15 @@ namespace ECAC_eSports_Scraper.Classes.ECACMethods
 
         public static async Task<string> SignIn(string username, string password)
         {
-            WebViewHandler.PublicClient.DefaultRequestHeaders.Clear();
-            WebViewHandler.PublicClient.DefaultRequestHeaders.Add("X-League-Id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
+            Main.MainClient.DefaultRequestHeaders.Clear();
+            Main.MainClient.DefaultRequestHeaders.Add("X-League-Id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
 
             using StringContent requestContent = new($"{{\"otpCode\":\"\",\"password\":\"{password}\",\"username\":\"{username}\"}}", Encoding.UTF8, "application/json");
-            using HttpResponseMessage response = await WebViewHandler.PublicClient.PostAsync("https://api.leaguespot.gg/api/v2/users/login", requestContent);
+            using HttpResponseMessage response = await Main.MainClient.PostAsync("https://api.leaguespot.gg/api/v2/users/login", requestContent);
 
             dynamic deserializedData = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
 
-            WebViewHandler.PublicClient.DefaultRequestHeaders.Clear();
+            Main.MainClient.DefaultRequestHeaders.Clear();
             
             return deserializedData?.token;
         }

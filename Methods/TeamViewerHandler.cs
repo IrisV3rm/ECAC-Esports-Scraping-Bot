@@ -6,18 +6,18 @@ using System.Windows.Controls;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
-using ECAC_eSports_Scraper.Classes.ECACMethods;
-using ECAC_eSports_Scraper.Classes.GameAPIMethods;
-using ECAC_eSports_Scraper.DataTypes.ECAC;
-using ECAC_eSports_Scraper.DataTypes.GameAPIHandles.Valorant;
-using ECAC_eSports_Scraper.DataTypes.GameTypes;
+using ECAC_eSports.Classes.ECACMethods;
+using ECAC_eSports.Classes.GameAPIMethods;
+using ECAC_eSports.DataTypes.ECAC;
+using ECAC_eSports.DataTypes.GameAPIHandles.Valorant;
+using ECAC_eSports.DataTypes.GameTypes;
 using Wpf.Ui.Common;
 using Wpf.Ui.Controls;
 using Image = System.Windows.Controls.Image;
 
 // ReSharper disable PossibleLossOfFraction
 
-namespace ECAC_eSports_Scraper.Methods
+namespace ECAC_eSports.Methods
 {
     public class TeamViewerHandler
     {

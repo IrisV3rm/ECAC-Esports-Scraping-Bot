@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using System.Windows;
 using System.Windows.Media;
-using ECAC_eSports_Scraper.Methods;
+using ECAC_eSports.Methods;
 
-namespace ECAC_eSports_Scraper.CustomControls
+namespace ECAC_eSports.CustomControls
 {
     /// <summary>
     /// Interaction logic for MessageBox.xaml

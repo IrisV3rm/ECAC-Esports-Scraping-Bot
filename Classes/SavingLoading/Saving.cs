@@ -1,8 +1,8 @@
 ﻿using System.IO;
-using ECAC_eSports_Scraper.DataTypes.ECAC;
+using ECAC_eSports.DataTypes.ECAC;
 using Newtonsoft.Json;
 
-namespace ECAC_eSports_Scraper.Classes.SavingLoading
+namespace ECAC_eSports.Classes.SavingLoading
 {
     internal class SaveData
     {

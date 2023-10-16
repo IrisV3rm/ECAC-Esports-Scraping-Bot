@@ -1,17 +1,17 @@
-﻿using System.Drawing;
-using System;
+﻿using System;
+using System.Drawing;
 using System.IO;
 using System.Runtime.InteropServices;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Interop;
 using System.Windows.Markup;
-using System.Windows.Media.Imaging;
 using System.Windows.Media;
+using System.Windows.Media.Imaging;
 using System.Xml;
-using System.Windows.Documents;
 using Image = System.Windows.Controls.Image;
 
-namespace ECAC_eSports_Scraper.Methods
+namespace ECAC_eSports.Methods
 {
     public static class GlobalMethods
     {

@@ -1,0 +1,259 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProjectGuid>{9D8CB6D6-C614-4855-BAAB-B3E39CBDF3F7}</ProjectGuid>
+    <OutputType>WinExe</OutputType>
+    <RootNamespace>ECAC_eSports</RootNamespace>
+    <AssemblyName>ECAC eSports</AssemblyName>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+    <ProjectTypeGuids>{60dc8134-eba5-43b8-bcc9-bb4bc16c2548};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <WarningLevel>4</WarningLevel>
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    <Deterministic>true</Deterministic>
+    <langversion>latest</langversion>
+    <NuGetPackageImportStamp>
+    </NuGetPackageImportStamp>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\Debug\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <langversion>latest</langversion>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <langversion>latest</langversion>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Brotli.Core, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\Brotli.NET.2.1.1\lib\net45\Brotli.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=13.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>packages\Newtonsoft.Json.13.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Drawing.Common, Version=7.0.0.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>packages\System.Drawing.Common.7.0.0\lib\net462\System.Drawing.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+      <Private>True</Private>
+      <Private>True</Private>
+    </Reference>
+    <Reference Include="System.Xml" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="System.Net.Http" />
+    <Reference Include="System.Xaml">
+      <RequiredTargetFramework>4.0</RequiredTargetFramework>
+    </Reference>
+    <Reference Include="WindowsBase" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="PresentationFramework" />
+    <Reference Include="Wpf.Ui, Version=2.1.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>packages\WPF-UI.2.1.0\lib\net472\Wpf.Ui.dll</HintPath>
+    </Reference>
+    <Reference Include="WpfAnimatedGif, Version=2.0.0.0, Culture=neutral, PublicKeyToken=9e7cd3b544a090dc, processorArchitecture=MSIL">
+      <HintPath>packages\WpfAnimatedGif.2.0.2\lib\net40\WpfAnimatedGif.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+  <ItemGroup>
+    <ApplicationDefinition Include="App.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </ApplicationDefinition>
+    <Page Include="CustomControls\MessageBox.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Main.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Compile Include="App.xaml.cs">
+      <DependentUpon>App.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Classes\ECACMethods\ECACMethods.cs" />
+    <Compile Include="Classes\GameAPIMethods\TrackerGG.cs" />
+    <Compile Include="Classes\GameAPIMethods\TrackerGGCustomData.cs" />
+    <Compile Include="Classes\SavingLoading\GlobalProperties.cs" />
+    <Compile Include="Classes\SavingLoading\Loading.cs" />
+    <Compile Include="Classes\SavingLoading\Saving.cs" />
+    <Compile Include="Classes\Util.cs" />
+    <Compile Include="CustomControls\MessageBox.xaml.cs">
+      <DependentUpon>MessageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="DataTypes\ECAC\Account.cs" />
+    <Compile Include="DataTypes\ECAC\School.cs" />
+    <Compile Include="DataTypes\ECAC\Team.cs" />
+    <Compile Include="DataTypes\ECAC\TeamStats.cs" />
+    <Compile Include="DataTypes\ECAC\User.cs" />
+    <Compile Include="DataTypes\GameAPIHandles\GlobalAPIHandles.cs" />
+    <Compile Include="DataTypes\GameAPIHandles\Valorant\TrackerScore.cs" />
+    <Compile Include="DataTypes\GameAPIHandles\Valorant\ValorantAgent.cs" />
+    <Compile Include="DataTypes\GameAPIHandles\Valorant\ValorantRank.cs" />
+    <Compile Include="DataTypes\GameAPIHandles\Valorant\ValorantTrackerStats.cs" />
+    <Compile Include="DataTypes\GameTypes\GlobalGameData.cs" />
+    <Compile Include="Main.xaml.cs">
+      <DependentUpon>Main.xaml</DependentUpon>
+      <SubType>Code</SubType>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Methods\EnemyTeamViewerHandler.cs" />
+    <Compile Include="Methods\GlobalMethods.cs" />
+    <Compile Include="Methods\TeamViewerHandler.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="Properties\Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DependentUpon>Settings.settings</DependentUpon>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <EmbeddedResource Include="Properties\Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <None Include="packages.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <AdditionalFiles Include="BypassCF.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </AdditionalFiles>
+    <None Include="Start.exe" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Images\ECACScraper.ico" />
+    <Resource Include="Images\ECACScraper.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Astra.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Breach.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Brimstone.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Chamber.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Cypher.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Fade.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Harbor.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Jett.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\KAYO.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Killjoy.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Neon.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Omen.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Phoenix.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Raze.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Reyna.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Sage.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Skye.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Sova.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Viper.png" />
+    <Resource Include="Images\ValorantAssets\Headshots\Yoru.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Ascendant 1.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Ascendant 2.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Ascendant 3.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Bronze 1.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Bronze 2.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Bronze 3.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Diamond 1.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Diamond 2.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Diamond 3.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Gold 1.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Gold 2.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Gold 3.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Immortal 1.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Immortal 2.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Immortal 3.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Iron 1.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Iron 2.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Iron 3.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Platinum 1.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Platinum 2.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Platinum 3.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Radiant.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Silver 1.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Silver 2.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Silver 3.png" />
+    <Resource Include="Images\ValorantAssets\Ranks\Unranked.png" />
+    <Resource Include="Images\ValorantAssets\Roles\ControllerClassSymbol.png" />
+    <Resource Include="Images\ValorantAssets\Roles\DuelistClassSymbol.png" />
+    <Resource Include="Images\ValorantAssets\Roles\InitiatorClassSymbol.png" />
+    <Resource Include="Images\ValorantAssets\Roles\SentinelClassSymbol.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\error.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\exclamation.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\information.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\question.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Resources\loading-gif.gif" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <Import Project="packages\Brotli.NET.2.1.1\build\Brotli.NET.targets" Condition="Exists('packages\Brotli.NET.2.1.1\build\Brotli.NET.targets')" />
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\Brotli.NET.2.1.1\build\Brotli.NET.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\Brotli.NET.2.1.1\build\Brotli.NET.targets'))" />
+  </Target>
+  <PropertyGroup>
+    <PostBuildEvent>if "$(ConfigurationName)"=="Debug" (
+    xcopy "$(SolutionDir)\BotV2\bin\Debug\net7.0" "$(TargetDir)" /Y
+)
+
+if "$(ConfigurationName)"=="Release" (
+    xcopy "$(SolutionDir)\BotV2\bin\Release\net7.0" "$(TargetDir)" /Y
+)
+
+if "$(ConfigurationName)"=="Release" (
+    xcopy "$(ProjectDir)Start.exe" "$(TargetDir)ECAC eSports Scraper.exe" /Y
+)
+
+cd "$(TargetDir)"
+mkdir "bin"
+del *.xml
+del *.pdb
+del *.config
+
+if "$(ConfigurationName)"=="Release" (
+    move /y runtimes bin
+    for %25%25A in (*) do if not "%25%25~xA"=="" move /Y "%25%25A" "bin\"
+)</PostBuildEvent>
+  </PropertyGroup>
+</Project>

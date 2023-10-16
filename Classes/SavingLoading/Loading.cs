@@ -1,8 +1,8 @@
-﻿using Newtonsoft.Json.Linq;
+﻿using System.IO;
 using Newtonsoft.Json;
-using System.IO;
+using Newtonsoft.Json.Linq;
 
-namespace ECAC_eSports_Scraper.Classes.SavingLoading
+namespace ECAC_eSports.Classes.SavingLoading
 {
     public class Loading
     {
