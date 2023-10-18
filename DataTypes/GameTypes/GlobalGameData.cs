@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports.DataTypes.GameTypes
+﻿namespace ECAC_eSports_Bot.DataTypes.GameTypes
 {
     public class GlobalGameData
     {

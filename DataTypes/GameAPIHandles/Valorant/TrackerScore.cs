@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports.DataTypes.GameAPIHandles.Valorant
+﻿namespace ECAC_eSports_Bot.DataTypes.GameAPIHandles.Valorant
 {
     public record TrackerScore(int Score, double WinPercentage, double Kast, double AverageCombatScore, double DdPerRound)
     {

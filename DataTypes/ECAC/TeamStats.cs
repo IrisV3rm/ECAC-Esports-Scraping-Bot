@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports.DataTypes.ECAC
+﻿namespace ECAC_eSports_Bot.DataTypes.ECAC
 {
     public record TeamStats(double WinCount, double LossCount, double WinPercentage)
     {

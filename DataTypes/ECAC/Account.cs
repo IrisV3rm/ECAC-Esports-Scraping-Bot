@@ -1,7 +1,7 @@
-﻿using ECAC_eSports.DataTypes.GameAPIHandles;
-using ECAC_eSports.DataTypes.GameTypes;
+﻿using ECAC_eSports_Bot.DataTypes.GameAPIHandles;
+using ECAC_eSports_Bot.DataTypes.GameTypes;
 
-namespace ECAC_eSports.DataTypes.ECAC
+namespace ECAC_eSports_Bot.DataTypes.ECAC
 {
     public record EcacAccount(string Username, string Password, GlobalGameData.Games GameType, GlobalApiHandles.GameApiType ApiType)
     {

@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Net.Http;
-using System.Net.Http.Headers;
+﻿using System.Net.Http.Headers;
 using System.Text;
-using System.Threading.Tasks;
 using Brotli;
-using ECAC_eSports.DataTypes.ECAC;
-using ECAC_eSports.DataTypes.GameTypes;
+using ECAC_eSports_Bot.Classes.SavingLoading;
+using ECAC_eSports_Bot.DataTypes.ECAC;
+using ECAC_eSports_Bot.DataTypes.GameTypes;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 
@@ -15,7 +11,7 @@ using Newtonsoft.Json.Linq;
 // ReSharper disable once PossibleLossOfFraction
 // ReSharper disable IdentifierTypo
 
-namespace ECAC_eSports.Classes.ECACMethods
+namespace ECAC_eSports_Bot.Classes.ECACMethods
 {
     public class EcacMethods
     {
@@ -57,27 +53,27 @@ namespace ECAC_eSports.Classes.ECACMethods
         
         internal static async Task<JToken> SendGetNetRequest(string getUrl)
         {
-            Main.MainClient.DefaultRequestHeaders.Clear();
-            Main.MainClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
-            Main.MainClient.DefaultRequestHeaders.Add("X-League-Id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
-            Main.MainClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.EcacAuthorization);
+            GlobalProperties.MainClient.DefaultRequestHeaders.Clear();
+            GlobalProperties.MainClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
+            GlobalProperties.MainClient.DefaultRequestHeaders.Add("X-League-Id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
+            GlobalProperties.MainClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GlobalProperties.EcacAuthorization);
 
-            using HttpResponseMessage response = await Main.MainClient.GetAsync(getUrl);
+            using HttpResponseMessage response = await GlobalProperties.MainClient.GetAsync(getUrl);
             
             byte[] decompressedContent = (await response.Content.ReadAsByteArrayAsync()).DecompressFromBrotli();
 
-            Main.MainClient.DefaultRequestHeaders.Clear();
+            GlobalProperties.MainClient.DefaultRequestHeaders.Clear();
 
             return JToken.Parse(response.Content.ReadAsStringAsync().Result.Contains("Invalid league") ? "{}" : Encoding.UTF8.GetString(decompressedContent));
         }
         
-        internal static async Task<string> GetCurrentUserId()
+        internal static async Task<string?> GetCurrentUserId()
         {
             JToken responseBody = await SendGetNetRequest("https://api.leaguespot.gg/api/v1/users/me");
             return responseBody.Value<string>("userId");
         }
 
-        internal static async Task FetchAndCacheAccountData(string userId)
+        internal static async Task FetchAndCacheAccountData(string? userId)
         {
             if (CachedUserId == userId) return;
 
@@ -85,23 +81,23 @@ namespace ECAC_eSports.Classes.ECACMethods
             _cachedData = responseBody;
         }
 
-        public static async Task<string> SignIn(string username, string password)
+        public static async Task<string?> SignIn(string username, string password)
         {
-            Main.MainClient.DefaultRequestHeaders.Clear();
-            Main.MainClient.DefaultRequestHeaders.Add("X-League-Id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
+            GlobalProperties.MainClient.DefaultRequestHeaders.Clear();
+            GlobalProperties.MainClient.DefaultRequestHeaders.Add("X-League-Id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
 
             using StringContent requestContent = new($"{{\"otpCode\":\"\",\"password\":\"{password}\",\"username\":\"{username}\"}}", Encoding.UTF8, "application/json");
-            using HttpResponseMessage response = await Main.MainClient.PostAsync("https://api.leaguespot.gg/api/v2/users/login", requestContent);
+            using HttpResponseMessage response = await GlobalProperties.MainClient.PostAsync("https://api.leaguespot.gg/api/v2/users/login", requestContent);
 
-            dynamic deserializedData = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
+            dynamic? deserializedData = JsonConvert.DeserializeObject<dynamic>(await response.Content.ReadAsStringAsync());
 
-            Main.MainClient.DefaultRequestHeaders.Clear();
+            GlobalProperties.MainClient.DefaultRequestHeaders.Clear();
             
             return deserializedData?.token;
         }
 
 
-        public static async Task<string> GetLinkedHandleByType(string userId, HandleTypes gameHandle)
+        public static async Task<string?> GetLinkedHandleByType(string? userId, HandleTypes gameHandle)
         {
             await FetchAndCacheAccountData(userId);
             
@@ -110,22 +106,23 @@ namespace ECAC_eSports.Classes.ECACMethods
                 return null;
             }
 
-            JToken gameHandles = _cachedData["gameHandles"];
-            return gameHandles.Count() <= (int)gameHandle ? null : gameHandles[(int)gameHandle]?.Value<string>("handle");
+            JToken? gameHandles = _cachedData["gameHandles"];
+            return gameHandles?.Count() <= (int)gameHandle ? null : gameHandles?[(int)gameHandle]?.Value<string>("handle");
         }
 
-        public static List<User> GetTeamMembers(JToken members)
+        public static List<User> GetTeamMembers(JToken? members)
         {
-            return members.Select(member => new User(
+            return (members ?? throw new ArgumentNullException(nameof(members))).Select(member => new User(
                 member.Value<string>("gamerHandle"),
                 member.Value<string>("roleId"),
                 member.Value<string>("userId"),
-                member.Value<string>("discordHandle"))).ToList();
+                member.Value<string>("discordHandle"))
+            ).ToList();
         }
 
-        public static async Task<TeamStats> GetTeamStats(string teamId, bool currentSeasonOnly = true)
+        public static async Task<TeamStats> GetTeamStats(string? teamId, bool currentSeasonOnly = true)
         {
-            string seasonId = null;
+            string? seasonId = null;
             double winCount = 0.0;
             double lossCount = 0.0;
 
@@ -134,14 +131,14 @@ namespace ECAC_eSports.Classes.ECACMethods
 
             foreach (JToken matchToken in responseBody)
             {
-                JObject match = matchToken as JObject;
+                JObject? match = matchToken as JObject;
 
                 if (seasonId is null) seasonId = match?.Value<string>("seasonId");
                 else if (currentSeasonOnly && seasonId != match?.Value<string>("seasonId")) break;
 
-                JToken participant = match?["match"]?["matchParticipants"]?[0];
+                JToken? participant = match?["match"]?["matchParticipants"]?[0];
                 bool isWinner = participant?.Value<bool>("isWinner") ?? false;
-                string participantTeamId = participant?.Value<string>("teamId");
+                string? participantTeamId = participant?.Value<string>("teamId");
 
                 if (isWinner && participantTeamId == teamId) winCount++;
                 else lossCount++;
@@ -152,10 +149,10 @@ namespace ECAC_eSports.Classes.ECACMethods
             return new TeamStats(winCount, lossCount, (int)Math.Floor(winCount / (winCount + lossCount) * 100));
         }
 
-        internal static async Task<string> GetCurrentOpponentTeamId(GlobalGameData.Games gameType)
+        internal static async Task<string?> GetCurrentOpponentTeamId(GlobalGameData.Games gameType)
         {
-            Team currentTeamData = await GetCurrentUserTeam(gameType);
-            string currentTeamId = currentTeamData?.Id;
+            Team? currentTeamData = await GetCurrentUserTeam(gameType);
+            string? currentTeamId = currentTeamData?.Id;
 
             if (currentTeamId == null) return "";
 
@@ -164,14 +161,15 @@ namespace ECAC_eSports.Classes.ECACMethods
 
             if (!responseBody.HasValues) return currentTeamId;
 
-            JToken teams = responseBody[0]["match"]?["matchParticipants"];
+            JToken? teams = responseBody[0]["match"]?["matchParticipants"];
             
             return teams?.FirstOrDefault(team => team.Value<string>("teamId") != currentTeamId)?.Value<string>("teamId");
         }
 
-        public static async Task<Team> GetCurrentOpponent(GlobalGameData.Games gameType)
+        public static async Task<Team?> GetCurrentOpponent(GlobalGameData.Games gameType)
         {
             JToken team = await SendGetNetRequest($"https://api.leaguespot.gg/api/v1/teams/{await GetCurrentOpponentTeamId(gameType)}");
+            Console.WriteLine($"https://api.leaguespot.gg/api/v1/teams/{await GetCurrentOpponentTeamId(gameType)}");
             Console.WriteLine(team.ToString());
             return new Team(
                 team.Value<string>("id"),
@@ -179,18 +177,19 @@ namespace ECAC_eSports.Classes.ECACMethods
                 team.Value<string>("name"),
                 GetTeamMembers(team.Value<JToken>("members")),
                 team["organization"]!.Value<string>("name"),
-                GlobalGameData.Games.Valorant
+                GlobalGameData.Games.Valorant,
+                await GetTeamStats(team.Value<string>("id"), false)
             );
         }
 
-        public static async Task<Team> GetCurrentUserTeam(GlobalGameData.Games gameType)
+        public static async Task<Team?> GetCurrentUserTeam(GlobalGameData.Games gameType)
         {
             // Stupid shitty hack but I couldn't figure out why it wasn't working with the set client
             using HttpClient httpClient = new();
             
             httpClient.DefaultRequestHeaders.Add("Accept-Encoding", "gzip, deflate, br");
             httpClient.DefaultRequestHeaders.Add("x-league-id", "d0b8ffc0-4feb-4b69-994c-60c8a3704316");
-            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", App.EcacAuthorization);
+            httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", GlobalProperties.EcacAuthorization);
 
             HttpResponseMessage response = await httpClient.GetAsync($"https://api.leaguespot.gg/api/v1/users/{await GetCurrentUserId()}/teams");
 
@@ -210,7 +209,8 @@ namespace ECAC_eSports.Classes.ECACMethods
                     team.Value<string>("name"),
                     GetTeamMembers(team.Value<JToken>("members")),
                     team["organization"]!.Value<string>("name"),
-                    GlobalGameData.Games.Valorant
+                    GlobalGameData.Games.Valorant,
+                    await GetTeamStats(team.Value<string>("id"))
                 );
             }
 

@@ -1,17 +1,61 @@
-﻿using System.Collections.Generic;
-using ECAC_eSports.DataTypes.GameTypes;
+﻿using DSharpPlus.Entities;
+using DSharpPlus.EventArgs;
+using DSharpPlus;
+using ECAC_eSports_Bot.Classes.SavingLoading;
+using ECAC_eSports_Bot.DataTypes.GameTypes;
+using ECAC_eSports_Bot.Methods;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
-namespace ECAC_eSports.DataTypes.ECAC
+namespace ECAC_eSports_Bot.DataTypes.ECAC
 {
-    public record Team(string Id, string LogoUrl, string Name, List<User> Members, string SchoolName, GlobalGameData.Games Game)
+    public record Team(string? Id, string? LogoUrl, string? Name, List<User> Members, string? SchoolName, GlobalGameData.Games Game, TeamStats Stats)
     {
-        public string Id { get; set; } = Id;
-        public string LogoUrl { get; set; } = LogoUrl;
-        public string Name { get; set; } = Name;
-        public string SchoolName { get; set; } = SchoolName;
+        internal User CurrentUserPage = null!;
+
+        public string? Id { get; set; } = Id;
+        public string? LogoUrl { get; set; } = LogoUrl;
+        public string? Name { get; set; } = Name;
+        public string? SchoolName { get; set; } = SchoolName;
         public List<User> Members { get; set; } = Members;
+        public TeamStats Stats { get; set; } = Stats;
+        public ulong ChannelId { get; set; }
 
         public GlobalGameData.Games Game { get; set; } = Game;
+
+        public async Task SendMessageWithComponents(DiscordChannel channel)
+        {
+            CurrentUserPage = Members.First();
+            await channel.SendMessageAsync(
+                new DiscordMessageBuilder().AddEmbeds(CurrentUserPage.DiscordEmbeds).AddComponents(
+                    new DiscordButtonComponent(ButtonStyle.Primary, $"PreviousPage_{Name!.Replace(" ", "")}", "Previous Page"),
+                    new DiscordButtonComponent(ButtonStyle.Primary, $"NextPage_{Name!.Replace(" ", "")}", "Next Page")
+                )
+            );
+        }
+
+        public async Task DoCommand()
+        {
+            DiscordChannel channel = GlobalProperties.Client.GetChannelAsync(ChannelId).Result;
+            EmbedCreator.CreateTeamEmbedData(this);
+            await SendMessageWithComponents(channel);
+
+            GlobalProperties.Client.ComponentInteractionCreated += InteractionHandler;
+        }
+
+        private async Task InteractionHandler(DiscordClient sender, InteractionCreateEventArgs args)
+        {
+            if (args.Interaction.ChannelId != ChannelId) return;
+            
+            int currentUserIndex = Members.IndexOf(CurrentUserPage);
+            int nextUserIndex = args.Interaction.Data.CustomId.Contains("NextPage") ? currentUserIndex + 1 > Members.Count - 1 ? 0 : currentUserIndex + 1 : currentUserIndex - 1 < 0 ? 0 : currentUserIndex - 1;
+
+            CurrentUserPage = Members[nextUserIndex];
+            await args.Interaction.CreateResponseAsync(InteractionResponseType.UpdateMessage, new DiscordInteractionResponseBuilder(new DiscordMessageBuilder().AddEmbeds(CurrentUserPage.DiscordEmbeds).AddComponents(
+                new DiscordButtonComponent(ButtonStyle.Primary, $"PreviousPage_{Name!.Replace(" ", "")}", "Previous Page"),
+                new DiscordButtonComponent(ButtonStyle.Primary, $"NextPage_{Name!.Replace(" ", "")}", "Next Page")
+            )));
+        }
     }
 }
 

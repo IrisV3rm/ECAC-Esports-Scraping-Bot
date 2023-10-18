@@ -1,17 +1,12 @@
-/bin
-/obj
+/bin/*
 /bin/Debug
 /obj/Debug
 /bin/Release
 /obj/Release
-/BotV2/bin/Debug
-/BotV2/obj/Debug
-/BotV2/bin/Release
-/BotV2/obj/Release
 /.vs/*
 /FileContentIndex
 .vs/*
 
 *.nupkg
 *.nuspec
-.vs/ECAC eSports/v17/.suo
+.vs/ECAC eSports Bot/v17/.suo

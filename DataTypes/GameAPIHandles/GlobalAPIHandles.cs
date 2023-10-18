@@ -1,4 +1,4 @@
-﻿namespace ECAC_eSports.DataTypes.GameAPIHandles
+﻿namespace ECAC_eSports_Bot.DataTypes.GameAPIHandles
 {
     public class GlobalApiHandles
     {

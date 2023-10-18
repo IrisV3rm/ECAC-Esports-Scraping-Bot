@@ -1,12 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Diagnostics;
 using Newtonsoft.Json.Linq;
-using static ECAC_eSports.Classes.GameAPIMethods.MatchDataType;
+using static ECAC_eSports_Bot.Classes.GameAPIMethods.MatchDataType;
 
-namespace ECAC_eSports.Classes.GameAPIMethods
+namespace ECAC_eSports_Bot.Classes.GameAPIMethods
 {
     public class MatchDataType
     {
@@ -16,11 +12,11 @@ namespace ECAC_eSports.Classes.GameAPIMethods
             public MapWinPercentage MatchWinPercentage { get; set; } = MatchWinPercentage;
         }
 
-        public record MatchData(string MapName, string Result, string AgentPlayed, int? Kills, int? Deaths, int? Assists)
+        public record MatchData(string? MapName, string? Result, string? AgentPlayed, int? Kills, int? Deaths, int? Assists)
         {
-            public string MapName { get; set; } = MapName;
-            public string Result { get; set; } = Result;
-            public string AgentPlayed { get; set; } = AgentPlayed;
+            public string? MapName { get; set; } = MapName;
+            public string? Result { get; set; } = Result;
+            public string? AgentPlayed { get; set; } = AgentPlayed;
             public int? Kills { get; set; } = Kills;
             public int? Deaths { get; set; } = Deaths;
             public int? Assists { get; set; } = Assists;
@@ -47,7 +43,7 @@ namespace ECAC_eSports.Classes.GameAPIMethods
             List<Match> matches = new();
             List<MatchData> last10Matches = matchDataList.Take(10).ToList();
 
-            IEnumerable<IGrouping<string, MatchData>> mapGroups = last10Matches.GroupBy(match => match.MapName);
+            IEnumerable<IGrouping<string?, MatchData>> mapGroups = last10Matches.GroupBy(match => match.MapName);
 
             List<MapWinPercentage> mapWinPercentages = (
                 from mapGroup in mapGroups 
@@ -67,13 +63,17 @@ namespace ECAC_eSports.Classes.GameAPIMethods
             return matches;
         }
         
-        public static async Task<TrackerGgCustomData> GetAndParseData(string riotId, DateTime cutOff)
+#pragma warning disable Roslyn.IDE0060
+        public static async Task<TrackerGgCustomData> GetAndParseData(string? riotId, DateTime cutOff)
+#pragma warning restore Roslyn.IDE0060
         {
             if (!await IsValidUser(riotId, false)) return DefaultStats();
             if (!await IsValidUser(riotId, true)) return DefaultStats();
             if (await TrackerRateLimitCheck(riotId)) Process.GetCurrentProcess().Kill();
 
-            string jsonData = await GetTrackerJson(riotId, true);
+            string? jsonData = await GetTrackerJson(riotId, true);
+            if (jsonData == null) return DefaultStats();
+
             JToken json = JToken.Parse(jsonData);
 
             if (json["data"]?["matches"] is null) return DefaultStats();
@@ -81,16 +81,17 @@ namespace ECAC_eSports.Classes.GameAPIMethods
             List<MatchData> matches = (
                 json["data"]?["matches"]!.Select(
                     matchData => new MatchData(
-                    matchData?["metadata"]?.Value<string>("mapName"), 
-                    matchData?["metadata"]?.Value<string>("result"), 
-                    matchData?["metadata"]?["segments"]?[0]?["metadata"]?.Value<string>("agentName"), 
-                    matchData?["metadata"]?["segments"]?[0]?["stats"]?["kills"]?.Value<int>("value"), 
-                    matchData?["metadata"]?["segments"]?[0]?["stats"]?["deaths"]?.Value<int>("value"), 
-                    matchData?["metadata"]?["segments"]?[0]?["stats"]?["assists"]?.Value<int>("value")
-                )
-            ) ?? Array.Empty<MatchData>()).ToList();
+                        matchData["metadata"]?.Value<string>("mapName"), 
+                        matchData["metadata"]?.Value<string>("result"), 
+                        matchData["metadata"]?["segments"]?[0]?["metadata"]?.Value<string>("agentName"), 
+                        matchData["metadata"]?["segments"]?[0]?["stats"]?["kills"]?.Value<int>("value"), 
+                        matchData["metadata"]?["segments"]?[0]?["stats"]?["deaths"]?.Value<int>("value"), 
+                        matchData["metadata"]?["segments"]?[0]?["stats"]?["assists"]?.Value<int>("value")
+                    )
+                ) ?? Array.Empty<MatchData>()).ToList();
 
             return new TrackerGgCustomData(CalculateMapWinPercentages(matches, DateTime.MinValue));
+
         }
 
         public static TrackerGgCustomData DefaultStats()
