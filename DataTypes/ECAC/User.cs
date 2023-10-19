@@ -16,7 +16,7 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
         public ValorantRank? ValorantPeakRank { get; set; }
         public ValorantTrackerStats? TrackerStats { get; set; }
 
-        public Classes.GameAPIMethods.TrackerGgCustomData TrackerCustomGames { get; set; }
+        public Classes.GameAPIMethods.TrackerGgCustomData? TrackerCustomGames { get; set; }
 
         public IEnumerable<DiscordEmbed>? DiscordEmbeds { get; set; }
 

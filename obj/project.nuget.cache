@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "OvjmE650ULPCmA6FQ5JmEBQj4R3n+4QD8bv8vbRJJt9+zkD/bcehBHp00rK8sgsh5rhyGbNKICommtPWoaQDeQ==",
+  "dgSpecHash": "eIILnP/8dDRtj0wZH5lGOfSOCZQB4SrZKR/3b/YQkQ7cbR8MIO86vYaLjVfD9WEyD+tWpkOAYQk8zhD7YqOaNQ==",
   "success": true,
-  "projectFilePath": "G:\\Sources\\C#\\Public Source Releases\\ECAC eSports Bot\\ECAC eSports Bot.csproj",
+  "projectFilePath": "C:\\Users\\irisd\\OneDrive\\Desktop\\Sources\\ECAC-Esports-Scraping-Bot\\ECAC eSports Bot.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\irisd\\.nuget\\packages\\brotli.net\\2.1.1\\brotli.net.2.1.1.nupkg.sha512",
     "C:\\Users\\irisd\\.nuget\\packages\\dsharpplus\\4.4.2\\dsharpplus.4.4.2.nupkg.sha512",

@@ -4,8 +4,6 @@ using DSharpPlus;
 using ECAC_eSports_Bot.Classes.SavingLoading;
 using ECAC_eSports_Bot.DataTypes.GameTypes;
 using ECAC_eSports_Bot.Methods;
-using Newtonsoft.Json;
-using Newtonsoft.Json.Linq;
 
 namespace ECAC_eSports_Bot.DataTypes.ECAC
 {
@@ -21,7 +19,9 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
         public TeamStats Stats { get; set; } = Stats;
         public ulong ChannelId { get; set; }
 
+/*
         public GlobalGameData.Games Game { get; set; } = Game;
+*/
 
         public async Task SendMessageWithComponents(DiscordChannel channel)
         {
@@ -30,10 +30,10 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
                 .WithAuthor($"{SchoolName} | {Name}", "", "https://ecac.leaguespot.gg/static/media/leagues/ecac/ecac-logo.png")
                 .AddField("__Win Count__", $"**{Stats.WinCount}**", true)
                 .AddField("__Loss Count__", $"**{Stats.LossCount}**", true)
-                .AddField("__Win Percent__", $"**{Stats.WinPercentage}%**", false)
+                .AddField("__Win Percent__", $"**{Stats.WinPercentage}%**")
                 .AddField("__Coach Riot Id__", $"``{Stats.TeamCoach.RiotId}``", true)
                 .AddField("__Coach Discord Tag__", $"``{Stats.TeamCoach.DiscordHandle}``", true)
-                .AddField("\u200b", "\u200b", false)
+                .AddField("\u200b", "\u200b")
                 .AddField("__Captain Riot Id__", $"``{Stats.TeamCaptain.RiotId}``", true)
                 .AddField("__Captain Discord Tag__", $"``{Stats.TeamCaptain.DiscordHandle}``", true)
                 .WithThumbnail(LogoUrl)

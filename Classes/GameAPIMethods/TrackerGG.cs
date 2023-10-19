@@ -13,22 +13,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
     public class TrackerGg
     {
         private static string _cachedData = "";
-
-        public static ValorantTrackerStats GetDefaultTrackerStats()
-        {
-            return new ValorantTrackerStats(
-                new ValorantAgent("Sage", ValorantAgent.ValorantRole.Sentinel, "", 0.0, 0.0, 0.0),
-                ValorantAgent.ValorantRole.Sentinel,
-                new TrackerScore(0, 0.0, 0.0, 0.0, 0.0),
-                "0%",
-                "0%",
-                "0",
-                "0",
-                new ValorantRank("Unranked", "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png"),
-                new ValorantRank("Unranked", "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png")
-            );
-        }
-
+        
         public static async Task<string?> GetTrackerJson(string? url)
         {
             _cachedData = string.Empty;
@@ -43,7 +28,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                 };
                 botProcess.Start();
 
-                using NamedPipeServerStream pipeServer = new("ECAC_BOT_PIPE", PipeDirection.In, NamedPipeServerStream.MaxAllowedServerInstances, PipeTransmissionMode.Message);
+                using NamedPipeServerStream pipeServer = new("ECAC_BOT_PIPE", PipeDirection.In, NamedPipeServerStream.MaxAllowedServerInstances);
 
                 pipeServer.WaitForConnection();
 
@@ -62,7 +47,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             HttpResponseMessage response = await GlobalProperties.MainClient.GetAsync($"https://api.kyroskoh.xyz/valorant/v1/mmr/NA/{riotId?.Replace(" ", "%20").Replace("#", "/")}?show=rankonly&display=0");
             string rank = await response.Content.ReadAsStringAsync();
             
-            return !rank.Contains("failed") ? new ValorantRank(rank, RankIcons.RankIcon[rank]) : new ValorantRank("Unranked", "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png");
+            return !rank.Contains("failed") ? new ValorantRank(rank, RankIcons.RankIcon[rank]) : ValorantRank.Default();
         }
 
         public static async Task<ValorantRank> GetPeakRank()
@@ -114,10 +99,10 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             
             JObject userData = JObject.Parse(_cachedData);
             JToken? segments = userData["data"]?["segments"];
-            if (segments is not { HasValues: true }) return Task.FromResult(new ValorantRank("Unranked", "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png"));
+            if (segments is not { HasValues: true }) return Task.FromResult(ValorantRank.Default());
 
             JToken? segment = segments[0]?["stats"]?[rankType]?["metadata"];
-            if (segment == null) return Task.FromResult(new ValorantRank("Unranked", "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png"));
+            if (segment == null) return Task.FromResult(ValorantRank.Default());
 
             string? tierName = segment.Value<string>("tierName");
             string? iconUrl = segment.Value<string>("iconUrl");
@@ -171,7 +156,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             return Task.FromResult($"{roundsWinPct}%");
         }
 
-        public static Task<ValorantAgent.ValorantRole> GetTopRole()
+        public static Task<AgentData.AgentClass> GetTopRole()
         {
             Debug.WriteLine("Starting 'GetTopRole'");
             
@@ -181,7 +166,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             IEnumerable<JToken?> segments = userData["data"]?["segments"]?.Reverse()!;
 
             if (segments is null)
-                return Task.FromResult(ValorantAgent.ValorantRole.Controller);
+                return Task.FromResult(AgentData.AgentClass.Controller);
 
             foreach (JToken? segment in segments)
             {
@@ -194,7 +179,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                 agentSegment = segment;
             }
 
-            TryParse(agentSegment?["metadata"]?.Value<string>("role"), out ValorantAgent.ValorantRole role);
+            TryParse(agentSegment?["metadata"]?.Value<string>("role"), out AgentData.AgentClass role);
 
             Debug.WriteLine("Finished 'GetTopRole'");
             return Task.FromResult(role);
@@ -223,7 +208,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                 agentSegment = segment;
             }
 
-            TryParse(agentSegment["metadata"]?.Value<string>("role"), out ValorantAgent.ValorantRole role);
+            TryParse(agentSegment["metadata"]?.Value<string>("role"), out AgentData.AgentClass role);
 
             Debug.WriteLine("Finished 'GetAgentData'");
 
@@ -257,12 +242,12 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             if (!await IsValidUser(riotId, false))
             {
                 Debug.WriteLine("Invalid Riot Id");
-                return GetDefaultTrackerStats();
+                return ValorantTrackerStats.Default();
             }
             if (!await IsValidUser(riotId, true))
             {
                 Debug.WriteLine("Tracker Invalid");
-                return GetDefaultTrackerStats();
+                return ValorantTrackerStats.Default();
             }
             if (await TrackerRateLimitCheck(riotId))
             {
@@ -275,7 +260,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             while (_cachedData == null) await Task.Delay(25);
 
             Task<ValorantAgent> agentDataTask = GetAgentData();
-            Task<ValorantAgent.ValorantRole> topRoleTask = GetTopRole();
+            Task<AgentData.AgentClass> topRoleTask = GetTopRole();
             Task<TrackerScore> trackerScoreTask = GetTrackerScore();
             Task<ValorantRank> currentRankTask = GetCurrentRank(riotId);
             Task<ValorantRank> peakRankTask = GetPeakRank();

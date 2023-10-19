@@ -5,7 +5,6 @@ using DSharpPlus.SlashCommands;
 using ECAC_eSports_Bot.Classes.SavingLoading;
 using ECAC_eSports_Bot.DataTypes.ECAC;
 using Microsoft.Extensions.Logging;
-using Newtonsoft.Json;
 
 #pragma warning disable CS8602 // Dereference of a possibly null reference.
 
@@ -56,14 +55,14 @@ namespace ECAC_eSports_Bot.Methods
         public class BotCommands : ApplicationCommandModule
         {
             [SlashCommand("refreshhome", "Re-grabs the home team data.")]
-            public async Task RefreshHomeTeamCommand(InteractionContext ctx)
+            public static async Task RefreshHomeTeamCommand(InteractionContext ctx)
             {
                 await ctx.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
                 await GlobalProperties.TeamViewer.DoCommand();
             }
 
             [SlashCommand("refreshenemy", "Re-grabs the enemy team data.")]
-            public async Task RefreshOpponentTeamCommand(InteractionContext ctx)
+            public static async Task RefreshOpponentTeamCommand(InteractionContext ctx)
             {
                 await ctx.CreateResponseAsync(InteractionResponseType.DeferredChannelMessageWithSource);
                 await GlobalProperties.EnemyTeamViewer.DoCommand();

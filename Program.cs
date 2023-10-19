@@ -5,6 +5,7 @@ using ECAC_eSports_Bot.DataTypes.GameAPIHandles;
 using ECAC_eSports_Bot.DataTypes.GameTypes;
 using ECAC_eSports_Bot.Methods;
 // ReSharper disable ObjectCreationAsStatement
+#pragma warning disable CS4014 // Because this call is not awaited, execution of the current method continues before the call is completed
 #pragma warning disable CS8604 // Possible null reference argument.
 
 namespace ECAC_eSports_Bot

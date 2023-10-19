@@ -19,10 +19,10 @@ namespace ECAC_eSports_Bot.Methods
                 user.TrackerStats = TrackerGg.GetStats(user.RiotId).Result;
 
                 if (!TrackerGg.IsValidUser(user.RiotId, false).Result || user.TrackerStats?.KdRatio is null)
-                    user.TrackerStats = TrackerGg.GetDefaultTrackerStats();
+                    user.TrackerStats = ValorantTrackerStats.Default();
                     
-                if (!TrackerGg.IsValidUser(user.RiotId, false).Result || user.TrackerCustomGames?.Matches?.Count is null)
-                    user.TrackerCustomGames = TrackerGgCustomData.DefaultStats();
+                if (!TrackerGg.IsValidUser(user.RiotId, false).Result || user.TrackerCustomGames?.Matches.Count is null)
+                    user.TrackerCustomGames = TrackerGgCustomData.Default();
                 else
                     user.TrackerCustomGames = TrackerGgCustomData.GetAndParseData(user.RiotId, DateTime.MinValue).Result;
 

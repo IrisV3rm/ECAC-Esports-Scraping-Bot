@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "G:\\Sources\\C#\\Public Source Releases\\ECAC eSports Bot\\ECAC eSports Bot.csproj": {}
+    "C:\\Users\\irisd\\OneDrive\\Desktop\\Sources\\ECAC-Esports-Scraping-Bot\\ECAC eSports Bot.csproj": {}
   },
   "projects": {
-    "G:\\Sources\\C#\\Public Source Releases\\ECAC eSports Bot\\ECAC eSports Bot.csproj": {
+    "C:\\Users\\irisd\\OneDrive\\Desktop\\Sources\\ECAC-Esports-Scraping-Bot\\ECAC eSports Bot.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "G:\\Sources\\C#\\Public Source Releases\\ECAC eSports Bot\\ECAC eSports Bot.csproj",
+        "projectUniqueName": "C:\\Users\\irisd\\OneDrive\\Desktop\\Sources\\ECAC-Esports-Scraping-Bot\\ECAC eSports Bot.csproj",
         "projectName": "ECAC eSports Bot",
-        "projectPath": "G:\\Sources\\C#\\Public Source Releases\\ECAC eSports Bot\\ECAC eSports Bot.csproj",
+        "projectPath": "C:\\Users\\irisd\\OneDrive\\Desktop\\Sources\\ECAC-Esports-Scraping-Bot\\ECAC eSports Bot.csproj",
         "packagesPath": "C:\\Users\\irisd\\.nuget\\packages\\",
-        "outputPath": "G:\\Sources\\C#\\Public Source Releases\\ECAC eSports Bot\\obj\\",
+        "outputPath": "C:\\Users\\irisd\\OneDrive\\Desktop\\Sources\\ECAC-Esports-Scraping-Bot\\obj\\",
         "projectStyle": "PackageReference",
         "fallbackFolders": [
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"

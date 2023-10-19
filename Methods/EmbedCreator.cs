@@ -70,8 +70,21 @@ namespace ECAC_eSports_Bot.Methods
 
                 DiscordEmbedBuilder trackerStats4 = new DiscordEmbedBuilder()
                     .WithColor(PinkColor)
-                    .AddField("Customs Data", user.TrackerStats.TopAgent.Name, true)
-                    .AddField("Top Agent", user.TrackerStats.TopAgent.Role.ToString(), true);
+                    .WithTitle("Custom's Data")
+                    .AddField("Top Agent", user.TrackerCustomGames?.MostUsedAgent.Name, true)
+                    .AddField("Top Agent Class", user.TrackerCustomGames?.MostUsedAgent.Role.ToString(), true)
+                    .WithFooter("", AgentData.RoleIcon[
+                        (AgentData.AgentClass)Enum.Parse(
+                            typeof(AgentData.AgentClass),
+                            user.TrackerCustomGames?.MostUsedAgent.Role.ToString()
+                        )
+                    ])
+                    .WithThumbnail(AgentData.AgentHeadshot[
+                        (AgentData.Agent)Enum.Parse(
+                            typeof(AgentData.Agent),
+                            user.TrackerCustomGames.MostUsedAgent.Name
+                        )
+                    ], 35, 35);
 
                 DiscordEmbedBuilder trackerStats5 = new DiscordEmbedBuilder()
                     .WithColor(PinkColor)

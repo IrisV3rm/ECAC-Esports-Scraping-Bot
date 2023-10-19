@@ -1,4 +1,5 @@
-﻿using System.Net.Http.Headers;
+﻿using System.Diagnostics.CodeAnalysis;
+using System.Net.Http.Headers;
 using System.Text;
 using Brotli;
 using ECAC_eSports_Bot.Classes.SavingLoading;
@@ -18,6 +19,7 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
         private const string CachedUserId = "";
         private static JToken _cachedData = JToken.Parse("{}");
 
+        [SuppressMessage("ReSharper", "UnusedMember.Global")]
         public enum HandleTypes
         {
             Activision,
@@ -67,10 +69,17 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
             return JToken.Parse(response.Content.ReadAsStringAsync().Result.Contains("Invalid league") ? "{}" : Encoding.UTF8.GetString(decompressedContent));
         }
         
+#pragma warning disable IDE0079
+        [SuppressMessage("ReSharper", "UnusedVariable")]
+#pragma warning restore IDE0079
         internal static async Task<string?> GetCurrentUserId()
         {
             JToken responseBody = await SendGetNetRequest("https://api.leaguespot.gg/api/v1/users/me");
+#if DEBUG
+            return "89c719d3-ffbd-436e-67a0-08d9e0fcbc21"; // https://ecac.leaguespot.gg/users/89c719d3-ffbd-436e-67a0-08d9e0fcbc21
+#else
             return responseBody.Value<string>("userId");
+#endif
         }
 
         internal static async Task FetchAndCacheAccountData(string? userId)

@@ -8,8 +8,10 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
         public string Username { get; set; } = Username;
         public string Password { get; set; } = Password;
 
+        // If I decided to expand to other games it's already supported
+        /*
         public GlobalGameData.Games GameType { get; set; } = GameType;
-        public GlobalApiHandles.GameApiType ApiType { get; set; } = ApiType;
+        public GlobalApiHandles.GameApiType ApiType { get; set; } = ApiType;*/
     }
 
 }
