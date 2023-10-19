@@ -1,4 +1,5 @@
 ﻿using DSharpPlus.Entities;
+using ECAC_eSports_Bot.Classes.GameAPIMethods;
 using ECAC_eSports_Bot.DataTypes.ECAC;
 using ECAC_eSports_Bot.DataTypes.GameAPIHandles.Valorant;
 #pragma warning disable CS8604 // Possible null reference argument.
@@ -20,7 +21,7 @@ namespace ECAC_eSports_Bot.Methods
         {
             foreach (User user in users)
             {
-                const string trackerStatus = ":white_check_mark:";
+                string trackerStatus = TrackerGg.IsValidUser(user.RiotId, false).Result ? ":white_check_mark:" : ":x:";
 
                 DiscordEmbedBuilder school = new DiscordEmbedBuilder()
                     .WithUrl("https://discord.gg/")

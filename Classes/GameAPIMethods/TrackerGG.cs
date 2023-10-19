@@ -48,8 +48,6 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                 pipeServer.WaitForConnection();
 
                 using StreamReader reader = new(pipeServer);
-
-                Console.WriteLine(reader.ReadToEnd());
                 
                 _cachedData = reader.ReadToEnd();
 

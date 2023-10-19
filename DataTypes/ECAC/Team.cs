@@ -25,6 +25,23 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
 
         public async Task SendMessageWithComponents(DiscordChannel channel)
         {
+            User homePage = new ("N/A", "N/A", "N/A", "N/A");
+            DiscordEmbedBuilder schoolStats = new DiscordEmbedBuilder()
+                .WithAuthor($"{SchoolName} | {Name}", "", "https://ecac.leaguespot.gg/static/media/leagues/ecac/ecac-logo.png")
+                .AddField("__Win Count__", $"**{Stats.WinCount}**", true)
+                .AddField("__Loss Count__", $"**{Stats.LossCount}**", true)
+                .AddField("__Win Percent__", $"**{Stats.WinPercentage}%**", false)
+                .AddField("__Coach Riot Id__", $"``{Stats.TeamCoach.RiotId}``", true)
+                .AddField("__Coach Discord Tag__", $"``{Stats.TeamCoach.DiscordHandle}``", true)
+                .AddField("\u200b", "\u200b", false)
+                .AddField("__Captain Riot Id__", $"``{Stats.TeamCaptain.RiotId}``", true)
+                .AddField("__Captain Discord Tag__", $"``{Stats.TeamCaptain.DiscordHandle}``", true)
+                .WithThumbnail(LogoUrl)
+                .WithFooter("Developed By iri.s", "https://cdn.discordapp.com/avatars/465727038305599500/a_c9dab76a68ced007428738870755b3d4.gif")
+                .WithTimestamp(DateTime.Now); // Adjust the timestamp as needed
+
+            homePage.DiscordEmbeds = new List<DiscordEmbed>{schoolStats.Build()};
+            Members.Insert(0, homePage);
             CurrentUserPage = Members.First();
             await channel.SendMessageAsync(
                 new DiscordMessageBuilder().AddEmbeds(CurrentUserPage.DiscordEmbeds).AddComponents(

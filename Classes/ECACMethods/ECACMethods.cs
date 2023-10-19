@@ -120,7 +120,7 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
             ).ToList();
         }
 
-        public static async Task<TeamStats> GetTeamStats(string? teamId, bool currentSeasonOnly = true)
+        public static async Task<TeamStats> GetTeamStats(string? teamId, List<User> teamMembers, bool currentSeasonOnly = true)
         {
             string? seasonId = null;
             double winCount = 0.0;
@@ -146,7 +146,13 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
 
             if (lossCount == 0) lossCount = 1;
 
-            return new TeamStats(winCount, lossCount, (int)Math.Floor(winCount / (winCount + lossCount) * 100));
+            return new TeamStats(
+                winCount,
+                lossCount, 
+                (int)Math.Floor(winCount / (winCount + lossCount) * 100),
+                teamMembers.First(member => member.RoleId == "6f4da22c-7fe5-4c78-8876-eec2c87d1096"),
+                teamMembers.First(member => member.RoleId == "5a1675f0-2fa9-482b-b187-434901734a42")
+            );
         }
 
         internal static async Task<string?> GetCurrentOpponentTeamId(GlobalGameData.Games gameType)
@@ -169,16 +175,15 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
         public static async Task<Team?> GetCurrentOpponent(GlobalGameData.Games gameType)
         {
             JToken team = await SendGetNetRequest($"https://api.leaguespot.gg/api/v1/teams/{await GetCurrentOpponentTeamId(gameType)}");
-            Console.WriteLine($"https://api.leaguespot.gg/api/v1/teams/{await GetCurrentOpponentTeamId(gameType)}");
-            Console.WriteLine(team.ToString());
+            List<User> teamMembers = GetTeamMembers(team.Value<JToken>("members"));
             return new Team(
                 team.Value<string>("id"),
                 team.Value<string>("organizationLogoUrl"),
                 team.Value<string>("name"),
-                GetTeamMembers(team.Value<JToken>("members")),
+                teamMembers,
                 team["organization"]!.Value<string>("name"),
                 GlobalGameData.Games.Valorant,
-                await GetTeamStats(team.Value<string>("id"), false)
+                await GetTeamStats(team.Value<string>("id"),teamMembers,false)
             );
         }
 
@@ -203,14 +208,16 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
             {
                 if (team.Value<string>("gameId") != GameTypes[gameType]) continue;
 
+                List<User> teamMembers = GetTeamMembers(team.Value<JToken>("members"));
+
                 return new Team(
                     team.Value<string>("id"),
                     team.Value<string>("logoUrl"),
                     team.Value<string>("name"),
-                    GetTeamMembers(team.Value<JToken>("members")),
+                    teamMembers,
                     team["organization"]!.Value<string>("name"),
                     GlobalGameData.Games.Valorant,
-                    await GetTeamStats(team.Value<string>("id"))
+                    await GetTeamStats(team.Value<string>("id"), teamMembers)
                 );
             }
 
