@@ -34,5 +34,14 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
         {
             ValorantPeakRank = peakRank;
         }
+
+        public static User Default()
+        {
+            User defaultUser = new("N/A", "N/A", "N/A", "N/A");
+            defaultUser.SetRiotId("N/A");
+            defaultUser.SetValorantCurrentRank(ValorantRank.Default());
+            defaultUser.SetValorantPeakRank(ValorantRank.Default());
+            return defaultUser;
+        }
     }
 }

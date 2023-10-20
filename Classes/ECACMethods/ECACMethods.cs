@@ -75,11 +75,7 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
         internal static async Task<string?> GetCurrentUserId()
         {
             JToken responseBody = await SendGetNetRequest("https://api.leaguespot.gg/api/v1/users/me");
-#if DEBUG
-            return "89c719d3-ffbd-436e-67a0-08d9e0fcbc21"; // https://ecac.leaguespot.gg/users/89c719d3-ffbd-436e-67a0-08d9e0fcbc21
-#else
             return responseBody.Value<string>("userId");
-#endif
         }
 
         internal static async Task FetchAndCacheAccountData(string? userId)
@@ -154,13 +150,16 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
             }
 
             if (lossCount == 0) lossCount = 1;
-
+            
+            User coach = teamMembers.FirstOrDefault(member => member.RoleId == "6f4da22c-7fe5-4c78-8876-eec2c87d1096") ?? User.Default();
+            User captain = teamMembers.FirstOrDefault(member => member.RoleId == "5a1675f0-2fa9-482b-b187-434901734a42") ?? User.Default();
+            
             return new TeamStats(
                 winCount,
                 lossCount, 
                 (int)Math.Floor(winCount / (winCount + lossCount) * 100),
-                teamMembers.First(member => member.RoleId == "6f4da22c-7fe5-4c78-8876-eec2c87d1096"),
-                teamMembers.First(member => member.RoleId == "5a1675f0-2fa9-482b-b187-434901734a42")
+                coach,
+                captain
             );
         }
 
@@ -177,7 +176,9 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
             if (!responseBody.HasValues) return currentTeamId;
 
             JToken? teams = responseBody[0]["match"]?["matchParticipants"];
-            
+
+            Program.Log($"Found current enemy Id: {teams?.FirstOrDefault(team => team.Value<string>("teamId") != currentTeamId)?.Value<string>("teamId")}");
+
             return teams?.FirstOrDefault(team => team.Value<string>("teamId") != currentTeamId)?.Value<string>("teamId");
         }
 
@@ -216,7 +217,7 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
             foreach (JToken team in responseBody)
             {
                 if (team.Value<string>("gameId") != GameTypes[gameType]) continue;
-
+                
                 List<User> teamMembers = GetTeamMembers(team.Value<JToken>("members"));
 
                 return new Team(

@@ -36,7 +36,7 @@ namespace ECAC_eSports_Bot
 
                 Log("Gathering enemy team...");
                 Team? enemyTeam = EcacMethods.GetCurrentOpponent(GlobalGameData.Games.Valorant).Result;
-                Log($"Found team as: {currentUserTeam?.Name}");
+                Log($"Found team as: {enemyTeam?.Name}");
 
                 currentUserTeam!.ChannelId = ulong.Parse(configFile.GetValue("Discord", "TeamChannelId"));
                 enemyTeam!.ChannelId = ulong.Parse(configFile.GetValue("Discord", "EnemyChannelId"));
