@@ -21,7 +21,7 @@ namespace ECAC_eSports_Bot.Methods
         {
             foreach (User user in users)
             {
-                string trackerStatus = TrackerGg.IsValidUser(user.RiotId, false).Result ? ":white_check_mark:" : ":x:";
+                string trackerStatus = user.TrackerStats != null && user.TrackerStats.ValidTracker ? ":white_check_mark:" : ":x:";
 
                 DiscordEmbedBuilder school = new DiscordEmbedBuilder()
                     .WithUrl("https://discord.gg/")
@@ -68,23 +68,23 @@ namespace ECAC_eSports_Bot.Methods
                         )
                     ],35,35);
 
-                DiscordEmbedBuilder trackerStats4 = new DiscordEmbedBuilder()
-                    .WithColor(PinkColor)
-                    .WithTitle("Custom's Data")
-                    .AddField("Top Agent", user.TrackerCustomGames?.MostUsedAgent.Name, true)
-                    .AddField("Top Agent Class", user.TrackerCustomGames?.MostUsedAgent.Role.ToString(), true)
-                    .WithFooter("", AgentData.RoleIcon[
-                        (AgentData.AgentClass)Enum.Parse(
-                            typeof(AgentData.AgentClass),
-                            user.TrackerCustomGames?.MostUsedAgent.Role.ToString()
-                        )
-                    ])
-                    .WithThumbnail(AgentData.AgentHeadshot[
-                        (AgentData.Agent)Enum.Parse(
-                            typeof(AgentData.Agent),
-                            user.TrackerCustomGames.MostUsedAgent.Name
-                        )
-                    ], 35, 35);
+                //DiscordEmbedBuilder trackerStats4 = new DiscordEmbedBuilder()
+                //    .WithColor(PinkColor)
+                //    .WithTitle("Custom's Data")
+                //    .AddField("Top Agent", user.TrackerCustomGames?.MostUsedAgent.Name, true)
+                //    .AddField("Top Agent Class", user.TrackerCustomGames?.MostUsedAgent.Role.ToString(), true)
+                //    .WithFooter("", AgentData.RoleIcon[
+                //        (AgentData.AgentClass)Enum.Parse(
+                //            typeof(AgentData.AgentClass),
+                //            user.TrackerCustomGames?.MostUsedAgent.Role.ToString()
+                //        )
+                //    ])
+                //    .WithThumbnail(AgentData.AgentHeadshot[
+                //        (AgentData.Agent)Enum.Parse(
+                //            typeof(AgentData.Agent),
+                //            user.TrackerCustomGames.MostUsedAgent.Name
+                //        )
+                //    ], 35, 35);
 
                 DiscordEmbedBuilder trackerStats5 = new DiscordEmbedBuilder()
                     .WithColor(PinkColor)
@@ -97,7 +97,7 @@ namespace ECAC_eSports_Bot.Methods
                 DiscordEmbed trackerStatsEmbed = trackerStats.Build();
                 DiscordEmbed trackerStatsEmbed2 = trackerStats2.Build();
                 DiscordEmbed trackerStatsEmbed3 = trackerStats3.Build();
-                DiscordEmbed trackerStatsEmbed4 = trackerStats4.Build();
+                //DiscordEmbed trackerStatsEmbed4 = trackerStats4.Build();
                 DiscordEmbed trackerStatsEmbed5 = trackerStats5.Build();
 
                 user.DiscordEmbeds = new List<DiscordEmbed>
@@ -108,7 +108,7 @@ namespace ECAC_eSports_Bot.Methods
                     trackerStatsEmbed,
                     trackerStatsEmbed2,
                     trackerStatsEmbed3,
-                    trackerStatsEmbed4,
+                    //trackerStatsEmbed4,
                     trackerStatsEmbed5
                 };
             }

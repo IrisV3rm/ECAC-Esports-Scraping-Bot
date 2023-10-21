@@ -50,6 +50,7 @@ public class TrackerGgCustomData : TrackerGg
 
     internal ValorantAgent GetMostUsedAgent()
     {
+        Program.LogDebug("Calculating best agent...");
         Dictionary<string, int> agentCount = new();
         foreach (Match match in Matches)
             if (agentCount.TryGetValue(match.MatchData.AgentPlayed, out int _))
@@ -61,6 +62,7 @@ public class TrackerGgCustomData : TrackerGg
 
         string topAgent = (from entry in agentCount orderby entry.Value select entry).First().Key;
         AgentData.Agent parsed = Enum.Parse<AgentData.Agent>(topAgent);
+        Program.LogDebug("Calculated best agent.");
         return new ValorantAgent(
             topAgent,
             AgentData.AgentToClass[parsed],
@@ -73,6 +75,7 @@ public class TrackerGgCustomData : TrackerGg
 
     internal string GetBestMap()
     {
+        Program.LogDebug("Calculating best map...");
         Dictionary<string, int> agentCount = new();
         foreach (Match match in Matches)
             if (agentCount.TryGetValue(match.MatchData.MapName, out int _))
@@ -80,11 +83,13 @@ public class TrackerGgCustomData : TrackerGg
             else
                 agentCount[match.MatchData.MapName] = 1;
 
+        Program.LogDebug("Calculated best map.");
         return agentCount.Count <= 0 ? "N/A" : (from entry in agentCount orderby entry.Value select entry).First().Key;
     }
 
     public static List<Match> CalculateMapWinPercentages(List<MatchData> matchDataList, DateTime cutOff)
     {
+        Program.LogDebug("Calculating map win percentage...");
         List<Match> matches = new();
         List<MatchData> last10Matches = matchDataList.Take(10).ToList();
 
@@ -105,22 +110,33 @@ public class TrackerGgCustomData : TrackerGg
             select new Match(match, mapWinPercentage)
         );
 
+        Program.LogDebug("Calculated percentages");
         return matches;
     }
 
     public static async Task<TrackerGgCustomData> GetAndParseData(string? riotId, DateTime cutOff)
     {
+        Program.LogDebug("Getting customs data...");
         if (!await IsValidUser(riotId, false)) return Default();
         if (!await IsValidUser(riotId, true)) return Default();
         if (await TrackerRateLimitCheck(riotId)) Process.GetCurrentProcess().Kill();
+        Program.LogDebug("Passed checks...");
 
+        Program.LogDebug("Grabbing json data...");
         string? jsonData = await GetTrackerJson(riotId, true);
         if (jsonData == null) return Default();
 
-        JToken json = JToken.Parse(jsonData);
+        Program.LogDebug("Json Parse...");
 
+        await using (StreamWriter writer = new($@"G:\Sources\C#\Public Source Releases\ECAC eSports Bot\bin\Debug\net7.0\{riotId?[..riotId.IndexOf("#", StringComparison.Ordinal)]}.json"))
+        {
+            await writer.WriteAsync(jsonData);
+        }
+        
+        JToken json = JToken.Parse(jsonData);
         if (json["data"]?["matches"] is null) return Default();
 
+        Program.LogDebug("Parsing json to MatchData");
         List<MatchData> matches = (
             json["data"]?["matches"]!.Select(
                 matchData => new MatchData(
@@ -133,6 +149,7 @@ public class TrackerGgCustomData : TrackerGg
                 )
             ) ?? Array.Empty<MatchData>()).ToList();
 
+        Program.LogDebug("Successfully set match data");
         return new TrackerGgCustomData(CalculateMapWinPercentages(matches, DateTime.MinValue));
     }
 

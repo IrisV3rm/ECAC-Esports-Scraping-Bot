@@ -16,8 +16,8 @@ namespace ECAC_eSports_Bot.Methods
         {
             try
             {
-                Program.Log("Starting client instance...");
-                Program.Log($"Token found: {!string.IsNullOrEmpty(discordToken)}");
+                Program.LogInfo("Starting client instance...");
+                Program.LogInfo($"Token found: {!string.IsNullOrEmpty(discordToken)}");
                 GlobalProperties.Client = new DiscordClient(new DiscordConfiguration
                 {
                     Token = discordToken,
@@ -27,15 +27,15 @@ namespace ECAC_eSports_Bot.Methods
                     LogTimestampFormat = "yyyy-MM-dd HH:mm:ss"
                 });
                 
-                Program.Log("Registering slash commands...");
+                Program.LogInfo("Registering slash commands...");
                 GlobalProperties.Slash = GlobalProperties.Client.UseSlashCommands();
                 GlobalProperties.TeamViewer = teamViewer;
                 GlobalProperties.EnemyTeamViewer = enemyTeamViewer;
               
-                Program.Log("Registering internal slash commands...");
+                Program.LogInfo("Registering internal slash commands...");
                 GlobalProperties.Slash.RegisterCommands<BotCommands>();
                 
-                Program.Log("Connecting to discord backend...");
+                Program.LogInfo("Connecting to discord backend...");
 
                 GlobalProperties.Client.Ready += async delegate
                 {

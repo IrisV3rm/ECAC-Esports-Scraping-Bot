@@ -10,35 +10,40 @@ namespace ECAC_eSports_Bot.Methods
     {
         public static void FormatTeam(Team? pendingTeam)
         {
-            if (pendingTeam?.Members == null) {Program.Log("Cannot find members.");return;}
+            if (pendingTeam?.Members == null) {Program.LogError("Cannot find members.");return;}
+
+            Program.LogInfo($"Parsing {pendingTeam.Name} members...");
 
             foreach (User user in pendingTeam.Members)
             {
                 string? linkedHandle = EcacMethods.GetLinkedHandleByType(user.UserId, EcacMethods.HandleTypes.Valorant).Result;
 
+                Program.LogInfo($"Parsing: {user.EcacName} | {linkedHandle}");
+
+                user.SetRiotId(linkedHandle);
+
                 user.TrackerStats = TrackerGg.GetStats(user.RiotId).Result;
 
-                if (!TrackerGg.IsValidUser(user.RiotId, false).Result || user.TrackerStats?.KdRatio is null)
+                if (!user.TrackerStats.ValidTracker || user.TrackerStats?.KdRatio is null)
                     user.TrackerStats = ValorantTrackerStats.Default();
-                    
-                if (!TrackerGg.IsValidUser(user.RiotId, false).Result || user.TrackerCustomGames?.Matches.Count is null)
-                    user.TrackerCustomGames = TrackerGgCustomData.Default();
-                else
-                    user.TrackerCustomGames = TrackerGgCustomData.GetAndParseData(user.RiotId, DateTime.MinValue).Result;
+
+                //user.TrackerCustomGames = user.TrackerStats.ValidTracker
+                //    ? TrackerGgCustomData.GetAndParseData(user.RiotId, DateTime.MinValue).Result
+                //    : TrackerGgCustomData.Default();
+
+                user.TrackerCustomGames = TrackerGgCustomData.Default();
+
 
                 if (user.ValorantCurrentRank?.Rank is null)
                     user.ValorantCurrentRank = user.TrackerStats.CurrentRank;
                 if (user.ValorantPeakRank?.Rank is null)
                     user.ValorantPeakRank = user.TrackerStats.PeakRank;
 
-                ValorantRank currentRank = user.ValorantCurrentRank;
-                ValorantRank peakRank = user.ValorantPeakRank;
-
-                user.SetRiotId(linkedHandle);
-                user.SetValorantCurrentRank(currentRank);
-                user.SetValorantPeakRank(peakRank);
+                user.SetValorantCurrentRank(user.ValorantCurrentRank);
+                user.SetValorantPeakRank(user.ValorantPeakRank);
             }
 
+            Program.LogInfo($"Successfully parsed {pendingTeam.Name}");
         }
     }
 }

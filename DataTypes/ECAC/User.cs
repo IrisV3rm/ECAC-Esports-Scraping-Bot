@@ -35,6 +35,7 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
             ValorantPeakRank = peakRank;
         }
 
+
         public static User Default()
         {
             User defaultUser = new("N/A", "N/A", "N/A", "N/A");

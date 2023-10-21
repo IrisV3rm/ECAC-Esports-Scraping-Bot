@@ -19,6 +19,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             _cachedData = string.Empty;
             return await Task.Run(() =>
             {
+                Program.LogDebug("Creating bypass params...");
                 Process botProcess = new();
                 botProcess.StartInfo = new ProcessStartInfo
                 {
@@ -26,15 +27,20 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                     Arguments = $"\"{url}\"",
                     CreateNoWindow = true
                 };
+                Program.LogDebug("Starting bypass...");
                 botProcess.Start();
 
+                Program.LogDebug("Creating bypass pipe connection...");
                 using NamedPipeServerStream pipeServer = new("ECAC_BOT_PIPE", PipeDirection.In, NamedPipeServerStream.MaxAllowedServerInstances);
 
+                Program.LogDebug("Waiting for pipe connection...");
                 pipeServer.WaitForConnection();
 
+                Program.LogDebug("Reading pipe data...");
                 using StreamReader reader = new(pipeServer);
                 
                 _cachedData = reader.ReadToEnd();
+                Program.LogDebug($"Cached data valid: {_cachedData.Contains("[")}");
 
                 botProcess.Dispose();
                 pipeServer.Dispose();
@@ -95,7 +101,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
 
         private static Task<ValorantRank> GetRank(string rankType)
         {
-            Debug.WriteLine("Starting 'GetRank'");
+            Program.LogDebug("Starting 'GetRank'");
             
             JObject userData = JObject.Parse(_cachedData);
             JToken? segments = userData["data"]?["segments"];
@@ -107,7 +113,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             string? tierName = segment.Value<string>("tierName");
             string? iconUrl = segment.Value<string>("iconUrl");
 
-            Debug.WriteLine("Starting 'Finished'");
+            Program.LogDebug("Starting 'Finished'");
 
             return Task.FromResult(new ValorantRank(tierName, iconUrl));
         }
@@ -115,7 +121,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
 
         public static Task<TrackerScore> GetTrackerScore()
         {
-            Debug.WriteLine("Starting 'GetTrackerScore'");
+            Program.LogDebug("Starting 'GetTrackerScore'");
             
             JObject userData = JObject.Parse(_cachedData);
             JToken? segments = userData["data"]?["segments"]?[0]?["stats"];
@@ -126,47 +132,47 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             double scorePerRound = segments?["scorePerRound"]?.Value<double>("value") ?? 0.0;
             double damageDeltaPerRound = segments?["damageDeltaPerRound"]?.Value<double>("value") ?? 0.0;
 
-            Debug.WriteLine("Finished 'GetTrackerScore'");
+            Program.LogDebug("Finished 'GetTrackerScore'");
             return Task.FromResult(new TrackerScore(trnPerformanceScore, roundsWinPct, kAst, scorePerRound, damageDeltaPerRound));
         }
         
         public static Task<string> GetWinPercentage()
         {
-            Debug.WriteLine("Starting 'GetWinPercentage'");
+            Program.LogDebug("Starting 'GetWinPercentage'");
 
             JObject userData = JObject.Parse(_cachedData);
             JToken? segments = userData["data"]?["segments"]?[0]?["stats"];
-            string roundsWinPct = segments?["roundsWinPct"]?.Value<string>("displayValue") ?? "0";
+            string roundsWinPct = segments?["matchesWinPct"]?.Value<string>("displayValue") ?? "0";
 
-            Debug.WriteLine("Finished 'GetWinPercentage'");
+            Program.LogDebug("Finished 'GetWinPercentage'");
 
             return Task.FromResult($"{roundsWinPct}%");
         }
 
         public static Task<string> GetAverageDamage()
         {
-            Debug.WriteLine("Starting 'GetAverageDamage'");
+            Program.LogDebug("Starting 'GetAverageDamage'");
             
             JObject userData = JObject.Parse(_cachedData);
             JToken? segments = userData["data"]?["segments"]?[0]?["stats"];
             string roundsWinPct = segments?["damagePerRound"]?.Value<string>("displayValue") ?? "0";
 
-            Debug.WriteLine("Finished 'GetAverageDamage'");
+            Program.LogDebug("Finished 'GetAverageDamage'");
 
             return Task.FromResult($"{roundsWinPct}%");
         }
 
         public static Task<AgentData.AgentClass> GetTopRole()
         {
-            Debug.WriteLine("Starting 'GetTopRole'");
+            Program.LogDebug("Starting 'GetTopRole'");
             
             double winPercent = 0.0;
-            JToken? agentSegment = null;
             JObject userData = JObject.Parse(_cachedData);
             IEnumerable<JToken?> segments = userData["data"]?["segments"]?.Reverse()!;
+            AgentData.AgentClass role = AgentData.AgentClass.None;
 
             if (segments is null)
-                return Task.FromResult(AgentData.AgentClass.Controller);
+                return Task.FromResult(AgentData.AgentClass.None);
 
             foreach (JToken? segment in segments)
             {
@@ -174,28 +180,31 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                     continue;
 
                 double? foundWinPct = segment["stats"]?["matchesWinPct"]?.Value<double>("value");
-                winPercent = foundWinPct > winPercent ? foundWinPct.Value : winPercent;
+                
+                if (foundWinPct is null || foundWinPct < winPercent) continue;
 
-                agentSegment = segment;
+                winPercent = foundWinPct.Value;
+
+                TryParse(segment?["metadata"]?.Value<string>("name"), out role);
             }
 
-            TryParse(agentSegment?["metadata"]?.Value<string>("role"), out AgentData.AgentClass role);
-
-            Debug.WriteLine("Finished 'GetTopRole'");
+            Program.LogDebug("Finished 'GetTopRole'");
             return Task.FromResult(role);
         }
 
         public static Task<ValorantAgent> GetAgentData()
         {
-            Debug.WriteLine("Starting 'GetAgentData'");
-            
+            Program.LogDebug("Starting 'GetAgentData'");
+
+            AgentData.Agent agentData = AgentData.Agent.None;
             double winPercent = 0.0;
-            JToken agentSegment = null!;
+
             JObject userData = JObject.Parse(_cachedData);
             IEnumerable<JToken>? segments = userData["data"]?["segments"]?.Reverse();
+            AgentData.AgentClass role = AgentData.AgentClass.None;
 
             if (segments is null)
-                return Task.FromResult<ValorantAgent>(null!);
+                return Task.FromResult(ValorantAgent.Default());
 
             foreach (JToken segment in segments)
             {
@@ -203,19 +212,22 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                     continue;
 
                 double? foundWinPct = segment["stats"]?["matchesWinPct"]?.Value<double>("value");
-                winPercent = foundWinPct > winPercent ? foundWinPct.Value : winPercent;
 
-                agentSegment = segment;
+                if (foundWinPct is null || foundWinPct < winPercent) continue;
+
+                winPercent = foundWinPct.Value;
+                
+                TryParse(segment["metadata"]?.Value<string>("name"), out agentData);
+                TryParse(segment["metadata"]?.Value<string>("role"), out role);
             }
 
-            TryParse(agentSegment["metadata"]?.Value<string>("role"), out AgentData.AgentClass role);
 
-            Debug.WriteLine("Finished 'GetAgentData'");
+            Program.LogDebug("Finished 'GetAgentData'");
 
             return Task.FromResult(new ValorantAgent(
-                agentSegment["metadata"]?.Value<string>("name"),
+                agentData.ToString(),
                 role,
-                agentSegment["metadata"]?.Value<string>("imageUrl"),
+                AgentData.AgentHeadshot[agentData],
                 0.0,
                 0.0,
                 0.0
@@ -224,9 +236,17 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
 
         public static async Task<bool> TrackerRateLimitCheck(string? riotId)
         {
-            string? siteBody = await GetTrackerJson($"https://api.tracker.gg/api/v2/valorant/standard/profile/riot/{riotId}?forceCollect=true&source=web".Replace("#", "%23").Replace(" ", "%20"));
-            
-            return siteBody != null && siteBody.Contains("You are being rate limited");
+            string? siteBody = _cachedData;
+
+            if (riotId is not null && !_cachedData.Contains(riotId))
+            {
+                Program.LogDebug("User is not cached, performing rate limit check...");
+                siteBody = await GetTrackerJson(
+                    $"https://api.tracker.gg/api/v2/valorant/standard/profile/riot/{riotId}?forceCollect=true&source=web"
+                        .Replace("#", "%23").Replace(" ", "%20"));
+            }
+
+            return siteBody is not null && siteBody.Contains("You are being rate limited");
         }
 
         public static async Task<string?> GetTrackerJson(string? riotId, bool custom = false)
@@ -241,24 +261,30 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
         {
             if (!await IsValidUser(riotId, false))
             {
-                Debug.WriteLine("Invalid Riot Id");
+                Program.LogError("User has an invalid riot id, skipping...");
                 return ValorantTrackerStats.Default();
             }
+
+            Program.LogInfo($"Fetching user results for: {riotId}");
             if (!await IsValidUser(riotId, true))
             {
-                Debug.WriteLine("Tracker Invalid");
+                Program.LogError("User has an invalid TrackerGG page, skipping...");
                 return ValorantTrackerStats.Default();
             }
             if (await TrackerRateLimitCheck(riotId))
             {
-                Console.WriteLine("Rate Limit");
+                Program.LogError("Program has detected a rate limit via Tracker.GG, please try again in 30 Minutes - 1 Hour");
                 Console.ReadLine();
                 Process.GetCurrentProcess().Kill();
             }
 
-            _cachedData = await GetTrackerJson(riotId) ?? string.Empty;
+            Program.LogDebug("Waiting for old pipes to close...");
+            while (Process.GetProcessesByName("BypassCF.exe").Length > 0) await Task.Delay(50);
             while (_cachedData == null) await Task.Delay(25);
 
+            Program.LogInfo($"Caching user results for: {riotId}");
+            Program.LogInfo("Starting user tracker setup...");
+            
             Task<ValorantAgent> agentDataTask = GetAgentData();
             Task<AgentData.AgentClass> topRoleTask = GetTopRole();
             Task<TrackerScore> trackerScoreTask = GetTrackerScore();
@@ -268,8 +294,6 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
             Task<string?> headshotPercentageTask = GetHeadshotPercentage();
             Task<string?> kdRatioTask = GetKdRatio();
             Task<string> averageDamageTask = GetAverageDamage();
-
-            Debug.WriteLine("Starting tracker stats...");
 
             await Task.WhenAll(
                 agentDataTask,
@@ -283,7 +307,7 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                 peakRankTask
             );
 
-            Debug.WriteLine("Finished tracker stats...");
+            Program.LogSuccess("Finished tracker setup...");
             
             return new ValorantTrackerStats(
                 agentDataTask.Result,
@@ -294,34 +318,33 @@ namespace ECAC_eSports_Bot.Classes.GameAPIMethods
                 kdRatioTask.Result,
                 averageDamageTask.Result,
                 currentRankTask.Result,
-                peakRankTask.Result
+                peakRankTask.Result,
+                true
             );
         }
 
         public static async Task<string?> FetchAndCacheData(string url)
         {
-            Debug.WriteLine($"Fetching: {url}");
+            Program.LogDebug($"Fetching: {url}");
             
             string? siteBody = await GetTrackerJson(url.Replace("#", "%23").Replace(" ", "%20"));
             siteBody = siteBody?[siteBody.IndexOf('{')..];
 
-            if (siteBody != null)
-            {
-                int endIndex = siteBody.Contains("\\u0")
-                    ? siteBody.IndexOf("}\\u0", StringComparison.Ordinal) + 1
-                    : siteBody.LastIndexOf("}", StringComparison.Ordinal) + 1;
+            if (siteBody == null) return "errors";
+
+            int endIndex = siteBody.Contains("\\u0")
+                ? siteBody.IndexOf("}\\u0", StringComparison.Ordinal) + 1
+                : siteBody.LastIndexOf("}", StringComparison.Ordinal) + 1;
 
 
-                string jsonData = siteBody[..endIndex].Replace("\\\"", "\"");
+            string jsonData = siteBody[..endIndex].Replace("\\\"", "\"");
 
-                if (!jsonData.Contains("\\")) return jsonData;
+            if (!jsonData.Contains("\\")) return jsonData;
 
-                Console.WriteLine(jsonData);
+            Console.WriteLine(jsonData);
 
-                return jsonData;
-            }
+            return jsonData;
 
-            return "errors";
         }
     }
 }

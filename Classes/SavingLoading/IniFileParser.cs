@@ -22,6 +22,8 @@ namespace ECAC_eSports_Bot.Classes.SavingLoading
                 SetValue("Discord", "TeamChannelId", "");
                 SetValue("Discord", "EnemyChannelId", "");
 
+                SetValue("Debug", "DebugEnabled", "false");
+
                 Save(filePath);
             }
 

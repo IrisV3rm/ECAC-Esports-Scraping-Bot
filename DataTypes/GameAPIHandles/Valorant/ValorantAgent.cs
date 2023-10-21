@@ -88,7 +88,7 @@ namespace ECAC_eSports_Bot.DataTypes.GameAPIHandles.Valorant
             { Agent.Sova, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Sova.png" },
             { Agent.Viper, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Viper.png" },
             { Agent.Yoru, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Yoru.png" },
-            { Agent.None, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Headshots/Sage.png" }
+            { Agent.None, "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png" }
         };
 
         public static Dictionary<AgentClass, string> RoleIcon = new()
@@ -97,7 +97,7 @@ namespace ECAC_eSports_Bot.DataTypes.GameAPIHandles.Valorant
             { AgentClass.Duelist, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/DuelistClassSymbol.png"},
             { AgentClass.Initiator, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/InitiatorClassSymbol.png"},
             { AgentClass.Sentinel, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/SentinelClassSymbol.png"},
-            { AgentClass.None, "https://api.irisapp.ca/Dev/ecac-scraping/ValorantAssets/Roles/SentinelClassSymbol.png" }
+            { AgentClass.None, "https://trackercdn.com/cdn/tracker.gg/valorant/icons/tiersv2/0.png" }
         };
     }
 

@@ -25,7 +25,6 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
 
         public async Task SendMessageWithComponents(DiscordChannel channel)
         {
-            Console.WriteLine("DOING HOME");
             User homePage = new ("N/A", "N/A", "N/A", "N/A");
             DiscordEmbedBuilder schoolStats = new DiscordEmbedBuilder()
                 .WithAuthor($"{SchoolName} | {Name}", "", "https://ecac.leaguespot.gg/static/media/leagues/ecac/ecac-logo.png")
@@ -44,7 +43,6 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
             homePage.DiscordEmbeds = new List<DiscordEmbed>{schoolStats.Build()};
             Members.Insert(0, homePage);
             CurrentUserPage = Members.First();
-            Console.WriteLine("DOING SEND SEND SEND");
             await channel.SendMessageAsync(
                 new DiscordMessageBuilder().AddEmbeds(CurrentUserPage.DiscordEmbeds).AddComponents(
                     new DiscordButtonComponent(ButtonStyle.Primary, $"PreviousPage_{Name!.Replace(" ", "")}", "Previous Page"),
@@ -55,11 +53,8 @@ namespace ECAC_eSports_Bot.DataTypes.ECAC
 
         public async Task DoCommand()
         {
-            Console.WriteLine("DOING COMMAND");
             DiscordChannel channel = GlobalProperties.Client.GetChannelAsync(ChannelId).Result;
-            Console.WriteLine("DOING CHANNEL");
             EmbedCreator.CreateTeamEmbedData(this);
-            Console.WriteLine("DOING MESSAGE");
             await SendMessageWithComponents(channel);
 
             GlobalProperties.Client.ComponentInteractionCreated += InteractionHandler;

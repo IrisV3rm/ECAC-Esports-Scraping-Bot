@@ -176,9 +176,7 @@ namespace ECAC_eSports_Bot.Classes.ECACMethods
             if (!responseBody.HasValues) return currentTeamId;
 
             JToken? teams = responseBody[0]["match"]?["matchParticipants"];
-
-            Program.Log($"Found current enemy Id: {teams?.FirstOrDefault(team => team.Value<string>("teamId") != currentTeamId)?.Value<string>("teamId")}");
-
+            
             return teams?.FirstOrDefault(team => team.Value<string>("teamId") != currentTeamId)?.Value<string>("teamId");
         }
 

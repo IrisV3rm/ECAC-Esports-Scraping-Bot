@@ -12,6 +12,37 @@ namespace ECAC_eSports_Bot
 {
     internal class Program
     {
+        private static bool _debugEnabled;
+        public static void LogDebug(params string[] data)
+        {
+            if (!_debugEnabled) return;
+
+            Console.ForegroundColor = ConsoleColor.Magenta;
+            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] [DEBUG] {string.Join(" ", data)}");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void LogSuccess(params string[] data)
+        {
+            Console.ForegroundColor = ConsoleColor.Green;
+            Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {string.Join(" ", data)}\n");
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void LogInfo(params string[] data)
+        {
+            Console.ForegroundColor = ConsoleColor.Blue;
+            Log(data);
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
+        public static void LogError(params string[] data)
+        {
+            Console.ForegroundColor = ConsoleColor.DarkRed;
+            Log(data.Prepend("[ERROR] ").ToArray());
+            Console.ForegroundColor = ConsoleColor.White;
+        }
+
         public static void Log(params string[] data)
         {
             Console.WriteLine($"[{DateTime.Now:yyyy-MM-dd HH:mm:ss}] {string.Join(" ", data)}");
@@ -21,34 +52,34 @@ namespace ECAC_eSports_Bot
         {
             try
             {
-                Log("Creating authentication via ECAC...");
+                LogInfo("Creating authentication via ECAC...");
                 GlobalProperties.EcacAuthorization = await EcacMethods.SignIn(
                     configFile.GetValue("ECAC", "Username"),
                     configFile.GetValue("ECAC", "Password")
                 );
                 while (string.IsNullOrEmpty(GlobalProperties.EcacAuthorization)) await Task.Delay(50);
 
-                Log("Successfully authenticated!");
+                LogSuccess("Successfully authenticated!");
 
-                Log("Gathering home team...");
+                LogInfo("Gathering home team...");
                 Team? currentUserTeam = EcacMethods.GetCurrentUserTeam(GlobalGameData.Games.Valorant).Result;
-                Log($"Found team as: {currentUserTeam?.Name}");
+                LogSuccess($"Found team as: {currentUserTeam?.Name}");
 
-                Log("Gathering enemy team...");
+                LogInfo("Gathering enemy team...");
                 Team? enemyTeam = EcacMethods.GetCurrentOpponent(GlobalGameData.Games.Valorant).Result;
-                Log($"Found team as: {enemyTeam?.Name}");
+                LogSuccess($"Found team as: {enemyTeam?.Name}");
 
                 currentUserTeam!.ChannelId = ulong.Parse(configFile.GetValue("Discord", "TeamChannelId"));
                 enemyTeam!.ChannelId = ulong.Parse(configFile.GetValue("Discord", "EnemyChannelId"));
 
-                Log("Gathering home team stats...");
+                LogInfo("Gathering home team stats...");
                 TeamHandler.FormatTeam(currentUserTeam);
-                Log("Successfully gathered home stats!");
-                Log("Gathering enemy team stats...");
+                LogSuccess("Successfully gathered home stats!");
+                LogInfo("Gathering enemy team stats...");
                 TeamHandler.FormatTeam(enemyTeam);
-                Log("Successfully gathered enemy stats!");
+                LogSuccess("Successfully gathered enemy stats!");
 
-                Log("Starting bot initiation...");
+                LogInfo("Starting bot initiation...");
                 new BotHandlerMain(
                     configFile.GetValue("Discord", "BotToken"),
                     currentUserTeam,
@@ -58,16 +89,14 @@ namespace ECAC_eSports_Bot
             }
             catch (Exception ex)
             {
-                Console.WriteLine(ex.ToString()); Console.ForegroundColor = ConsoleColor.Red;
-                Log(ex.ToString());
-                Console.ForegroundColor = ConsoleColor.White;
+                LogError(ex.ToString());
             }
         }
 
 
         public static void Main()
         {
-            Log("Loading config parsers...");
+            LogInfo("Loading config parsers...");
             IniFileParser parser = new();
             parser.Load("_config.ini");
 
@@ -80,17 +109,17 @@ namespace ECAC_eSports_Bot
 
             GlobalProperties.DiscordToken = parser.GetValue("Discord", "BotToken");
             
-            Log("Finished parsing config!");
+            LogInfo("Finished parsing config!");
 
             if (string.IsNullOrWhiteSpace(GlobalProperties.EcacAccount.Password) ||
                 string.IsNullOrWhiteSpace(GlobalProperties.EcacAccount.Username) ||
                 string.IsNullOrWhiteSpace(GlobalProperties.DiscordToken))
             {
-                Console.ForegroundColor = ConsoleColor.Red;
-                Log($"Missing config settings, please set them: {AppDomain.CurrentDomain.BaseDirectory}_config.ini");
-                Console.ForegroundColor = ConsoleColor.White;
+                LogError($"Missing config settings, please set them: {AppDomain.CurrentDomain.BaseDirectory}_config.ini");
                 return;
             }
+
+            _debugEnabled = bool.Parse(parser.GetValue("Debug", "DebugEnabled"));
 
             Initiate(parser);
             Task.Delay(-1);
