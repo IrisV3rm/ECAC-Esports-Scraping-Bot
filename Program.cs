@@ -90,6 +90,7 @@ namespace ECAC_eSports_Bot
             catch (Exception ex)
             {
                 LogError(ex.ToString());
+                Console.ReadLine();
             }
         }
 
@@ -116,6 +117,7 @@ namespace ECAC_eSports_Bot
                 string.IsNullOrWhiteSpace(GlobalProperties.DiscordToken))
             {
                 LogError($"Missing config settings, please set them: {AppDomain.CurrentDomain.BaseDirectory}_config.ini");
+                Console.ReadLine();
                 return;
             }
 
